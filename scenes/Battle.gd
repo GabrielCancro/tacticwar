@@ -11,9 +11,9 @@ func _ready():
 	pass # Replace with function body.
 
 func _process(delta):
-	mouseTile = $TileMap.world_to_map( $TileMap.get_global_mouse_position()/2 )
-	$SelectorMap.position = mouseTile * 32 + Vector2(16,16)
-	$SelectorMap/Label.text = "("+str(mouseTile.x)+","+str(mouseTile.y)+")"
+	mouseTile = $Map/TileMapAuto.world_to_map( $Map/TileMapAuto.get_global_mouse_position()/2 )
+	$Map/SelectorMap.position = mouseTile * 32 + Vector2(16,16)
+	$Map/SelectorMap/Label.text = "("+str(mouseTile.x)+","+str(mouseTile.y)+")"
 	
 	moveCamera()
 
