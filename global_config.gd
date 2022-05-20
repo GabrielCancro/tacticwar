@@ -1,7 +1,9 @@
 extends Node
 
-var mouseTile
-var mouseTilePos
+var mouseTile = Vector2(0,0)
+var mouseTilePos = Vector2(0,0)
+var currentTrop
+var TropManager
 
 var OPTIONS = {
 	"trop_mov_vel":1.5
@@ -11,6 +13,9 @@ onready var TILE_MAP = get_node("/root/Battle/Map/TileMapAuto")
 
 func _ready():
 	pass # Replace with function body.
+
+func init_references():
+	TropManager = get_node("/root/Battle/TropManager")
 
 func pos_to_tile(pos):
 	return TILE_MAP.world_to_map( pos )

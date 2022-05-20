@@ -19,9 +19,6 @@ onready var trop1 = { "units":{ "cam":5,"gue":5,"arq":5,"jin":1,"cat":0}, "hps":
 onready var trop2 = { "units":{ "cam":10,"gue":0,"arq":0,"jin":0,"cat":0}, "hps":{}, "hpt":0, "unitsNode":get_node("/root/Battle/Trop/Units") }
 
 func _ready():
-	calc_hps(trop1)
-	calc_hps(trop2)
-	recreate_units_nodes(trop2)
 	$Button.connect("button_down",self,"onBtn")
 
 func onBtn():
