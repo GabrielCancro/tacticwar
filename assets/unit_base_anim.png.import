@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Grass.png-160a1da18f26f32e701defa182378390.stex"
+path="res://.import/unit_base_anim.png-8cb6cd3d06a9a89314e3a7d1e540ab83.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/map/Grass.png"
-dest_files=[ "res://.import/Grass.png-160a1da18f26f32e701defa182378390.stex" ]
+source_file="res://assets/unit_base_anim.png"
+dest_files=[ "res://.import/unit_base_anim.png-8cb6cd3d06a9a89314e3a7d1e540ab83.stex" ]
 
 [params]
 
@@ -31,5 +31,5 @@ process/invert_color=false
 process/normal_map_invert_y=false
 stream=false
 size_limit=0
-detect_3d=true
+detect_3d=false
 svg/scale=1.0

@@ -18,6 +18,10 @@ config/name="Tacticwar"
 run/main_scene="res://scenes/Battle.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+GC="*res://global_config.gd"
+
 [display]
 
 window/size/width=720

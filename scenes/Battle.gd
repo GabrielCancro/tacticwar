@@ -3,24 +3,26 @@ extends Node2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-var mouseTile
+
 var camera_velocity = 3
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	$Trop.position = GC.tile_to_pos( Vector2(3,4) )
+	print($Trop.position )
+	$Trop.set_destine($Trop.position)
 
 func _process(delta):
-	mouseTile = $Map/TileMapAuto.world_to_map( $Map/TileMapAuto.get_global_mouse_position()/2 )
-	$Map/SelectorMap.position = mouseTile * 32 + Vector2(16,16)
-	$Map/SelectorMap/Label.text = "("+str(mouseTile.x)+","+str(mouseTile.y)+")"
-	
+	GC.mouseTile = GC.pos_to_tile( $Map/TileMapAuto.get_global_mouse_position() )
+	GC.mouseTilePos = GC.tile_to_pos( GC.mouseTile )
+	$Map/SelectorMap.position = GC.mouseTilePos
+	$Map/SelectorMap/Label.text = "("+str(GC.mouseTile.x)+","+str(GC.mouseTile.y)+")"
 	moveCamera()
 
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == 1 and event.is_pressed():
-			print("CLICK",mouseTile)
+			$Trop.set_destine(GC.mouseTilePos)
 
 func moveCamera():
 	if Input.is_action_pressed("ui_down"): $Camera2D.position.y += camera_velocity
