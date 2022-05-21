@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/Battle.gd" type="Script" id=1]
 [ext_resource path="res://assets/map/Water.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://scripts/TropManager.gd" type="Script" id=8]
 [ext_resource path="res://scripts/ClickManager.gd" type="Script" id=9]
 [ext_resource path="res://components/Build.tscn" type="PackedScene" id=10]
+[ext_resource path="res://themes/MinimalUI.tres" type="Theme" id=11]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Grass-deco.png 0"
@@ -113,6 +114,8 @@ margin_left = 532.0
 margin_top = 312.0
 margin_right = 700.0
 margin_bottom = 351.0
+focus_mode = 0
+theme = ExtResource( 11 )
 text = "ATTACK"
 
 [node name="ClickManager" type="Node" parent="."]

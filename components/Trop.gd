@@ -3,12 +3,14 @@ extends Node2D
 var STATE = "NONE"
 var destine = Vector2(0,0)
 var current_anim
+var tile_pos = Vector2(0,0)
 onready var data = { 
 	"own":1,
 	"units":{ "cam":5,"gue":5,"arq":5,"jin":1,"cat":0}, 
 	"hps":{}, 
 	"hpt":0, 
-	"unitsNode":$Units
+	"unitsNode":$Units,
+	"tropNode":self
 }
 
 func _ready():
@@ -28,6 +30,7 @@ func move_trop():
 	play_units_anim("move")
 	position += position.direction_to(destine) * GC.OPTIONS.trop_mov_vel
 	if( position.distance_to(destine) < GC.OPTIONS.trop_mov_vel ): position = destine
+	tile_pos = GC.pos_to_tile(position)
 
 func play_units_anim(anim_name,force=false):
 	if current_anim == anim_name && !force: return
@@ -53,3 +56,12 @@ func unselect():
 	GC.currentSelect = null
 	GC.currentSelectType = null
 	modulate.b = 1
+
+func fx_atack(des):
+	var orig_pos = position
+	$Tween.interpolate_property(self,"position", position, des, .2,Tween.TRANS_QUAD,Tween.EASE_IN)
+	$Tween.start()
+	yield($Tween,"tween_completed")
+	$Tween.interpolate_property(self,"position", position, orig_pos, .2,Tween.TRANS_QUAD,Tween.EASE_OUT)
+	$Tween.start()
+		

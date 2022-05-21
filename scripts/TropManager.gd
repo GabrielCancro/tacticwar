@@ -41,6 +41,8 @@ func atack(atk,def):
 	print(" atk -> ",atk)
 	print(" def -> ",def)
 	print("\n")
+	atk.tropNode.fx_atack( def.tropNode.position )
+	yield(get_tree().create_timer(.2),"timeout")
 	if def.hpt<=0: return
 	#calcular el daño de la tropa atacante
 	var atk_damage = 0

@@ -34,9 +34,13 @@ func apply_destine_action(tile):
 	
 	if GC.currentSelectType == "trop":
 		if trop_dest: 
-			GC.TropManager.atack(GC.currentSelect.data,trop_dest.data)
-			GC.currentSelect.unselect()
-		elif build_dest:			
+			if(GC.currentSelect == trop_dest):
+				GC.currentSelect.unselect()
+			elif(GC.currentSelect.tile_pos.distance_to(trop_dest.tile_pos)<=2):
+				GC.TropManager.atack(GC.currentSelect.data,trop_dest.data)
+				GC.currentSelect.unselect()
+			else: GC.currentSelect.unselect()
+		elif build_dest:
 			GC.currentSelect.unselect()
 		else:
 			GC.currentSelect.set_destine(GC.mouseTilePos)
