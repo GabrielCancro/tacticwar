@@ -4,6 +4,7 @@ var STATE = "NONE"
 var destine = Vector2(0,0)
 var current_anim
 onready var data = { 
+	"own":1,
 	"units":{ "cam":5,"gue":5,"arq":5,"jin":1,"cat":0}, 
 	"hps":{}, 
 	"hpt":0, 
@@ -15,6 +16,7 @@ func _ready():
 	yield(get_tree().create_timer(.1),"timeout")
 	GC.TropManager.calc_hps(data)
 	GC.TropManager.recreate_units_nodes(data)
+	teleport_to_tile(GC.pos_to_tile(position))
 	pass # Replace with function body.
 
 func _process(delta):
@@ -38,14 +40,16 @@ func play_units_anim(anim_name,force=false):
 func set_destine(des):
 	destine = des
 
-func teleport_trop_to_tile(tile):
+func teleport_to_tile(tile):
 	position = GC.tile_to_pos( tile )
 	set_destine(position)
 
 func select():
-	GC.currentTrop = self
+	GC.currentSelect = self
+	GC.currentSelectType = "trop"
 	modulate.b = 2
 
 func unselect():
-	GC.currentTrop = null
+	GC.currentSelect = null
+	GC.currentSelectType = null
 	modulate.b = 1

@@ -2,7 +2,8 @@ extends Node
 
 var mouseTile = Vector2(0,0)
 var mouseTilePos = Vector2(0,0)
-var currentTrop
+var currentSelect
+var currentSelectType
 var TropManager
 
 var OPTIONS = {

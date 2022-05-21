@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/Battle.gd" type="Script" id=1]
 [ext_resource path="res://assets/map/Water.png" type="Texture" id=2]
@@ -9,13 +9,14 @@
 [ext_resource path="res://assets/awesome.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://scripts/TropManager.gd" type="Script" id=8]
 [ext_resource path="res://scripts/ClickManager.gd" type="Script" id=9]
+[ext_resource path="res://components/Build.tscn" type="PackedScene" id=10]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Grass-deco.png 0"
 0/texture = ExtResource( 3 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
-0/region = Rect2( 0, 0, 320, 128 )
+0/region = Rect2( 0, 0, 320, 192 )
 0/tile_mode = 2
 0/autotile/icon_coordinate = Vector2( 0, 0 )
 0/autotile/tile_size = Vector2( 32, 32 )
@@ -34,6 +35,7 @@
 0/z_index = 0
 
 [sub_resource type="DynamicFont" id=2]
+size = 32
 font_data = ExtResource( 7 )
 
 [node name="Battle" type="Node2D"]
@@ -76,25 +78,32 @@ tile_data = PoolIntArray( 65542, 0, 196609, 65543, 0, 196610, 65544, 0, 196610, 
 tile_set = SubResource( 1 )
 cell_size = Vector2( 32, 32 )
 format = 1
-tile_data = PoolIntArray( 65548, 0, 4, 131079, 0, 1, 131080, 0, 1, 131087, 0, 1, 131088, 0, 1, 196619, 0, 1, 196620, 0, 1, 196621, 0, 1, 196623, 0, 1, 262144, 0, 3, 262149, 0, 0, 262151, 0, 1, 262153, 0, 0, 262154, 0, 0, 262155, 0, 0, 262158, 0, 2, 262159, 0, 2, 262160, 0, 2, 327683, 0, 0, 327684, 0, 0, 327687, 0, 1, 327689, 0, 2, 327694, 0, 0, 327697, 0, 1, 393222, 0, 2, 393224, 0, 1, 393230, 0, 0, 393233, 0, 1, 393235, 0, 3, 458758, 0, 2, 458760, 0, 1, 458764, 0, 1, 458765, 0, 1, 458766, 0, 1, 458767, 0, 1, 458768, 0, 1, 524290, 0, 1, 524293, 0, 0, 524296, 0, 1, 524297, 0, 1, 524298, 0, 1, 524299, 0, 1, 524303, 0, 1, 589827, 0, 0, 589833, 0, 0, 589834, 0, 0, 655373, 0, 4 )
+tile_data = PoolIntArray( 65543, 0, 327683, 65548, 0, 4, 131077, 0, 327682, 131079, 0, 1, 131080, 0, 1, 131087, 0, 1, 131088, 0, 1, 196613, 0, 196609, 196615, 0, 131072, 196616, 0, 131072, 196617, 0, 131072, 196618, 0, 131072, 196619, 0, 1, 196620, 0, 1, 196621, 0, 1, 196623, 0, 1, 262144, 0, 3, 262149, 0, 262145, 262150, 0, 196609, 262151, 0, 196608, 262152, 0, 196608, 262153, 0, 196608, 262154, 0, 196608, 262155, 0, 0, 262158, 0, 2, 262159, 0, 2, 262160, 0, 2, 327683, 0, 0, 327684, 0, 0, 327687, 0, 196608, 327688, 0, 196608, 327689, 0, 196608, 327690, 0, 196608, 327694, 0, 0, 327697, 0, 1, 393222, 0, 2, 393223, 0, 262144, 393224, 0, 262144, 393225, 0, 262144, 393226, 0, 262144, 393230, 0, 0, 393233, 0, 1, 393235, 0, 3, 458758, 0, 2, 458760, 0, 1, 458764, 0, 1, 458765, 0, 1, 458766, 0, 1, 458767, 0, 1, 458768, 0, 1, 524290, 0, 1, 524293, 0, 0, 524296, 0, 1, 524297, 0, 1, 524298, 0, 1, 524299, 0, 1, 524303, 0, 1, 589827, 0, 0, 589833, 0, 0, 589834, 0, 0, 655373, 0, 4 )
 
 [node name="SelectorMap" type="Sprite" parent="Map"]
 texture = ExtResource( 4 )
 
 [node name="Label" type="Label" parent="Map/SelectorMap"]
-margin_left = -19.0
-margin_top = 9.0
-margin_right = 58.0
-margin_bottom = 23.0
+margin_left = -30.0
+margin_top = 16.0
+margin_right = 90.0
+margin_bottom = 48.0
 rect_scale = Vector2( 0.5, 0.5 )
 custom_colors/font_color = Color( 0.933333, 0.933333, 0.933333, 1 )
 custom_fonts/font = SubResource( 2 )
 text = "(999,999)"
 align = 1
 
-[node name="Trop" parent="." instance=ExtResource( 6 )]
+[node name="Objects" type="Node2D" parent="Map"]
 
-[node name="Trop2" parent="." instance=ExtResource( 6 )]
+[node name="Build" parent="Map/Objects" instance=ExtResource( 10 )]
+position = Vector2( 112, 240 )
+
+[node name="Trop" parent="Map/Objects" instance=ExtResource( 6 )]
+position = Vector2( 136, 200 )
+
+[node name="Trop2" parent="Map/Objects" instance=ExtResource( 6 )]
+position = Vector2( 304, 248 )
 
 [node name="TropManager" type="Node" parent="."]
 script = ExtResource( 8 )

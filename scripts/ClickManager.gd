@@ -12,12 +12,35 @@ func _input(event):
 
 func onTileClick(tile):
 	print("onTileClick ",tile)
-	if(GC.currentTrop):
-		GC.currentTrop.set_destine(GC.mouseTilePos)
-		GC.currentTrop.unselect()
+	if(GC.currentSelect):
+		apply_destine_action(tile)
 	else:
-		for t in get_tree().get_nodes_in_group("trops_group"):
-			if(GC.pos_to_tile(t.position)==tile):
-				t.select()
-				break;
-	print("GC.currentTrop ",GC.currentTrop)
+		var build = get_element_in_tile(tile,"builds_group");
+		if build: build.select()
+		var trop = get_element_in_tile(tile,"trops_group");
+		if trop: trop.select()
+	print("GC.currentSelect ",GC.currentSelectType," ",GC.currentSelect)
+
+func get_element_in_tile(tile,group):
+	for t in get_tree().get_nodes_in_group(group):
+		if(GC.pos_to_tile(t.position)==tile):
+			return t
+
+func apply_destine_action(tile):
+	var trop_dest = get_element_in_tile(tile,"trops_group");
+	var build_dest = get_element_in_tile(tile,"builds_group");
+	
+	print("DESTINE ",GC.currentSelectType," to ",tile)
+	
+	if GC.currentSelectType == "trop":
+		if trop_dest: 
+			GC.TropManager.atack(GC.currentSelect.data,trop_dest.data)
+			GC.currentSelect.unselect()
+		elif build_dest:			
+			GC.currentSelect.unselect()
+		else:
+			GC.currentSelect.set_destine(GC.mouseTilePos)
+			GC.currentSelect.unselect()
+		
+	if GC.currentSelectType == "build":
+		GC.currentSelect.unselect()

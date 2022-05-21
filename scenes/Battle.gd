@@ -4,8 +4,6 @@ var camera_velocity = 3
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Trop.teleport_trop_to_tile( Vector2(3,4) )
-	$Trop2.teleport_trop_to_tile( Vector2(8,6) )
 	GC.init_references()
 
 func _process(delta):
