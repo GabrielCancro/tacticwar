@@ -29,13 +29,14 @@ func calc_hps(trop):
 	for u in trop.units:
 		trop.hps[u] = UNITS_DATA[u].hp * trop.units[u]
 		trop.hpt += trop.hps[u]
-#		print(u," x",trop.units[u]," ",trop.hps[u])
+	calc_units(trop)
 
 func calc_units(trop):
 	var amount = 0
 	for u in trop.units:
 		trop.units[u] = ceil( trop.hps[u] / UNITS_DATA[u].hp )
 		amount += trop.units[u] 
+	trop.tropNode.update_label(amount)
 	if amount<=0: trop.tropNode.remove_trop()
 
 func atack(atk,def):
@@ -43,7 +44,7 @@ func atack(atk,def):
 	print(" atk -> ",atk)
 	print(" def -> ",def)
 	print("\n")
-	atk.tropNode.fx_atack( def.tropNode.position )
+	atk.tropNode.fx_atack( def.tropNode )
 	yield(get_tree().create_timer(.2),"timeout")
 	if def.hpt<=0: return
 	#calcular el daño de la tropa atacante

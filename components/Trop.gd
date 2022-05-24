@@ -55,9 +55,9 @@ func unselect():
 	GC.setCurrentSelect(null)
 	modulate.b = 1
 
-func fx_atack(des):
+func fx_atack(def):
 	var orig_pos = position
-	$Tween.interpolate_property(self,"position", position, des, .2,Tween.TRANS_QUAD,Tween.EASE_IN)
+	$Tween.interpolate_property(self,"position", position, (position+def.position)/2, .2,Tween.TRANS_QUAD,Tween.EASE_IN)
 	$Tween.start()
 	yield($Tween,"tween_completed")
 	$Tween.interpolate_property(self,"position", position, orig_pos, .2,Tween.TRANS_QUAD,Tween.EASE_OUT)
@@ -67,3 +67,6 @@ func get_class(): return "Trop"
 
 func remove_trop():
 	queue_free()
+
+func update_label(amount):
+	$Panel/Label.text = str(amount)
