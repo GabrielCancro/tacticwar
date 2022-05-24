@@ -19,7 +19,7 @@ onready var trop1 = { "units":{ "cam":5,"gue":5,"arq":5,"jin":1,"cat":0}, "hps":
 onready var trop2 = { "units":{ "cam":10,"gue":0,"arq":0,"jin":0,"cat":0}, "hps":{}, "hpt":0, "unitsNode":get_node("/root/Battle/Trop/Units") }
 
 func _ready():
-	$Button.connect("button_down",self,"onBtn")
+	pass
 
 func onBtn():
 	atack(trop1,trop2)
@@ -32,9 +32,11 @@ func calc_hps(trop):
 #		print(u," x",trop.units[u]," ",trop.hps[u])
 
 func calc_units(trop):
+	var amount = 0
 	for u in trop.units:
 		trop.units[u] = ceil( trop.hps[u] / UNITS_DATA[u].hp )
-#		print("UNIT ",u," ",trop.units[u])
+		amount += trop.units[u] 
+	if amount<=0: trop.tropNode.remove_trop()
 
 func atack(atk,def):
 	print("ATAQUE!!")
@@ -80,7 +82,6 @@ func atack(atk,def):
 		if(def.hps[u]<0):
 			damage_rest -= def.hps[u]
 			def.hps[u] = 0
-			
 	print("RESULTADO TRAS APLICAR EL DAÑO")
 	calc_units(def)
 	print(def)

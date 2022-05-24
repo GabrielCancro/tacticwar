@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/Battle.gd" type="Script" id=1]
 [ext_resource path="res://assets/map/Water.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://scripts/ClickManager.gd" type="Script" id=9]
 [ext_resource path="res://components/Build.tscn" type="PackedScene" id=10]
 [ext_resource path="res://themes/MinimalUI.tres" type="Theme" id=11]
+[ext_resource path="res://scripts/CanvasLayer.gd" type="Script" id=12]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Grass-deco.png 0"
@@ -109,14 +110,46 @@ position = Vector2( 304, 248 )
 [node name="TropManager" type="Node" parent="."]
 script = ExtResource( 8 )
 
-[node name="Button" type="Button" parent="TropManager"]
-margin_left = 532.0
-margin_top = 312.0
-margin_right = 700.0
-margin_bottom = 351.0
-focus_mode = 0
-theme = ExtResource( 11 )
-text = "ATTACK"
-
 [node name="ClickManager" type="Node" parent="."]
 script = ExtResource( 9 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource( 12 )
+
+[node name="Build" type="Control" parent="CanvasLayer"]
+margin_right = 40.0
+margin_bottom = 40.0
+theme = ExtResource( 11 )
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Build"]
+margin_right = 137.0
+margin_bottom = 195.0
+
+[node name="Label" type="Label" parent="CanvasLayer/Build/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+text = "CITY"
+
+[node name="Trop" type="Control" parent="CanvasLayer"]
+margin_right = 720.0
+margin_bottom = 400.0
+theme = ExtResource( 11 )
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Trop"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -137.0
+margin_bottom = 195.0
+
+[node name="Label" type="Label" parent="CanvasLayer/Trop/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+text = "TROP"

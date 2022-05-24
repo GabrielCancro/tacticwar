@@ -30,9 +30,9 @@ func apply_destine_action(tile):
 	var trop_dest = get_element_in_tile(tile,"trops_group");
 	var build_dest = get_element_in_tile(tile,"builds_group");
 	
-	print("DESTINE ",GC.currentSelectType," to ",tile)
+#	print("DESTINE ",GC.currentSelectType," to ",tile)
 	
-	if GC.currentSelectType == "trop":
+	if GC.currentSelectType == "Trop":
 		if trop_dest: 
 			if(GC.currentSelect == trop_dest):
 				GC.currentSelect.unselect()
@@ -46,5 +46,5 @@ func apply_destine_action(tile):
 			GC.currentSelect.set_destine(GC.mouseTilePos)
 			GC.currentSelect.unselect()
 		
-	if GC.currentSelectType == "build":
+	if GC.currentSelectType == "Build":
 		GC.currentSelect.unselect()

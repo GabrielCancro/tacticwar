@@ -11,6 +11,7 @@ var OPTIONS = {
 }
 
 onready var TILE_MAP = get_node("/root/Battle/Map/TileMapAuto")
+onready var UI = get_node("/root/Battle/CanvasLayer")
 
 func _ready():
 	pass # Replace with function body.
@@ -23,3 +24,9 @@ func pos_to_tile(pos):
 
 func tile_to_pos(tile):
 	return TILE_MAP.map_to_world( tile ) + Vector2(16,16)
+
+func setCurrentSelect(go):
+	currentSelect = go
+	if go == null: currentSelectType = null
+	else: currentSelectType = go.get_class()
+	UI.onSelectObject(go)

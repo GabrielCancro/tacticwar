@@ -10,11 +10,11 @@ func teleport_to_tile(tile):
 	position = GC.tile_to_pos( tile )
 
 func select():
-	GC.currentSelect = self
-	GC.currentSelectType = "build"
+	GC.setCurrentSelect(self)
 	modulate.b = 2
 
 func unselect():
-	GC.currentSelect = null
-	GC.currentSelectType = null
+	GC.setCurrentSelect(null)
 	modulate.b = 1
+
+func get_class(): return "Build"

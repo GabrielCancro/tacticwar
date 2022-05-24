@@ -48,13 +48,11 @@ func teleport_to_tile(tile):
 	set_destine(position)
 
 func select():
-	GC.currentSelect = self
-	GC.currentSelectType = "trop"
+	GC.setCurrentSelect(self)
 	modulate.b = 2
 
 func unselect():
-	GC.currentSelect = null
-	GC.currentSelectType = null
+	GC.setCurrentSelect(null)
 	modulate.b = 1
 
 func fx_atack(des):
@@ -64,4 +62,8 @@ func fx_atack(des):
 	yield($Tween,"tween_completed")
 	$Tween.interpolate_property(self,"position", position, orig_pos, .2,Tween.TRANS_QUAD,Tween.EASE_OUT)
 	$Tween.start()
-		
+
+func get_class(): return "Trop"
+
+func remove_trop():
+	queue_free()
