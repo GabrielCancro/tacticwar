@@ -1,14 +1,30 @@
 extends Node
 
+var DOWN_POS = Vector2()
+var MOUSE_POS = Vector2()
+var MOVING_CAMERA = false
+
 func _process(delta):
 	GC.mouseTile = GC.pos_to_tile( get_node("/root/Battle/Map/TileMapAuto").get_global_mouse_position() )
 	GC.mouseTilePos = GC.tile_to_pos( GC.mouseTile )
 
 func _input(event):
 	if event is InputEventMouseButton:
-		if event.button_index == 1 and event.is_pressed():
-			onTileClick(GC.mouseTile)
+		if event.button_index == 1:
+			if event.is_pressed(): DOWN_POS = event.position
+			else:
+				if !MOVING_CAMERA: onTileClick(GC.mouseTile)
+				MOVING_CAMERA = false
+				DOWN_POS = null
+	elif event is InputEventMouseMotion:
+		MOUSE_POS = event.position
+		if DOWN_POS && (DOWN_POS.distance_to(MOUSE_POS)>5): MOVING_CAMERA=true
+		if MOVING_CAMERA: move_map()
 
+func move_map():
+	print("move map",(MOUSE_POS-DOWN_POS))
+	get_node("/root/Battle/Camera2D").position += DOWN_POS-MOUSE_POS
+	DOWN_POS = MOUSE_POS
 
 func onTileClick(tile):
 	print("onTileClick ",tile)
