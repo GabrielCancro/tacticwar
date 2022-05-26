@@ -10,9 +10,9 @@ var OPTIONS = {
 	"trop_mov_vel":1.5
 }
 
-onready var TILE_MAP = get_node("/root/Battle/Map/TileMapAuto")
+onready var TILE_MAP = get_node("/root/Battle/Map/TileMapNav")
 onready var UI = get_node("/root/Battle/CanvasLayer")
-onready var NAV = get_node("/root/Battle/Map")
+onready var MAP = get_node("/root/Battle/Map")
 
 func _ready():
 	pass # Replace with function body.
@@ -38,10 +38,12 @@ func setCurrentSelect(go):
 	UI.onSelectObject(go)
 
 func get_nav_path(from,to):
-	var points = Array( NAV.get_simple_path(normalize_pos(from),normalize_pos(to), false) )
-	points.pop_front()
-	if!points: return [from]
-	points[points.size()-1] = to
-	NAV.get_node("Line2D").points = points
-	NAV.get_node("Line2D2").points = PoolVector2Array([from,to])
+	from = GC.pos_to_tile(from)
+	to = GC.pos_to_tile(to)
+	var points = []
+	for p in MAP.get_nav_path(from,to): points.append( GC.tile_to_pos(p) )
+	if points.size()<=0: points = [GC.tile_to_pos(from)]
+	print("POINTS ",points)
+	MAP.get_node("Line2D").points = points
+	MAP.get_node("Line2D2").points = PoolVector2Array([from,to])
 	return points

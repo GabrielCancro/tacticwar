@@ -5,9 +5,9 @@ var MOUSE_POS = Vector2()
 var MOVING_CAMERA = false
 
 func _process(delta):
-	get_node("/root/Battle/CanvasLayer/Header/Panel/Label").text = str( get_node("/root/Battle/Map/TileMapAuto").get_global_mouse_position()  )
-	get_node("/root/Battle/CanvasLayer/Header/Panel/Label").text += str( GC.normalize_pos(get_node("/root/Battle/Map/TileMapAuto").get_global_mouse_position() ) )
-	GC.mouseTile = GC.pos_to_tile( get_node("/root/Battle/Map/TileMapAuto").get_global_mouse_position() )
+	get_node("/root/Battle/CanvasLayer/Header/Panel/Label").text = str( get_node("/root/Battle/Map/TileMapNav").get_global_mouse_position()  )
+	get_node("/root/Battle/CanvasLayer/Header/Panel/Label").text += str( GC.normalize_pos(get_node("/root/Battle/Map/TileMapNav").get_global_mouse_position() ) )
+	GC.mouseTile = GC.pos_to_tile( get_node("/root/Battle/Map/TileMapNav").get_global_mouse_position() )
 	GC.mouseTilePos = GC.tile_to_pos( GC.mouseTile )
 
 func _input(event):

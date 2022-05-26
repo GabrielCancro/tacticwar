@@ -27,7 +27,7 @@ func _process(delta):
 	z_index = position.y
 
 func move_trop():
-	print("MOVING TROP",path)
+#	print("MOVING TROP",path)
 	play_units_anim("move")
 	position += position.direction_to(path[0]) * GC.OPTIONS.trop_mov_vel
 	if( position.distance_to(path[0]) < GC.OPTIONS.trop_mov_vel ): 
