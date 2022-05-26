@@ -1,9 +1,9 @@
 extends Node2D
 
 var STATE = "NONE"
-var destine = Vector2(0,0)
 var current_anim
 var tile_pos = Vector2(0,0)
+var path = []
 onready var data = { 
 	"own":1,
 	"units":{ "cam":5,"gue":5,"arq":5,"jin":1,"cat":0}, 
@@ -22,14 +22,17 @@ func _ready():
 	pass # Replace with function body.
 
 func _process(delta):
-	if( position.distance_to(destine) != 0 ): move_trop()
+	if( path.size() != 0 ): move_trop()
 	else: play_units_anim("idle")
 	z_index = position.y
 
 func move_trop():
+	print("MOVING TROP",path)
 	play_units_anim("move")
-	position += position.direction_to(destine) * GC.OPTIONS.trop_mov_vel
-	if( position.distance_to(destine) < GC.OPTIONS.trop_mov_vel ): position = destine
+	position += position.direction_to(path[0]) * GC.OPTIONS.trop_mov_vel
+	if( position.distance_to(path[0]) < GC.OPTIONS.trop_mov_vel ): 
+		position = path[0]
+		path.pop_front()
 	tile_pos = GC.pos_to_tile(position)
 
 func play_units_anim(anim_name,force=false):
@@ -41,7 +44,7 @@ func play_units_anim(anim_name,force=false):
 
 #EXTERNALS
 func set_destine(des):
-	destine = des
+	path = Array( GC.get_nav_path(position,des) )
 
 func teleport_to_tile(tile):
 	position = GC.tile_to_pos( tile )

@@ -22,12 +22,12 @@ func _input(event):
 		if MOVING_CAMERA: move_map()
 
 func move_map():
-	print("move map",(MOUSE_POS-DOWN_POS))
+#	print("move map",(MOUSE_POS-DOWN_POS))
 	get_node("/root/Battle/Camera2D").position += DOWN_POS-MOUSE_POS
 	DOWN_POS = MOUSE_POS
 
 func onTileClick(tile):
-	print("onTileClick ",tile)
+#	print("onTileClick ",tile)
 	if(GC.currentSelect):
 		apply_destine_action(tile)
 	else:
@@ -35,7 +35,7 @@ func onTileClick(tile):
 		if build: build.select()
 		var trop = get_element_in_tile(tile,"trops_group");
 		if trop: trop.select()
-	print("GC.currentSelect ",GC.currentSelectType," ",GC.currentSelect)
+#	print("GC.currentSelect ",GC.currentSelectType," ",GC.currentSelect)
 
 func get_element_in_tile(tile,group):
 	for t in get_tree().get_nodes_in_group(group):

@@ -12,6 +12,7 @@ var OPTIONS = {
 
 onready var TILE_MAP = get_node("/root/Battle/Map/TileMapAuto")
 onready var UI = get_node("/root/Battle/CanvasLayer")
+onready var NAV = get_node("/root/Battle/Map")
 
 func _ready():
 	pass # Replace with function body.
@@ -30,3 +31,8 @@ func setCurrentSelect(go):
 	if go == null: currentSelectType = null
 	else: currentSelectType = go.get_class()
 	UI.onSelectObject(go)
+
+func get_nav_path(from,to):
+	var points = NAV.get_simple_path(from,to, false)
+	NAV.get_node("Line2D").points = points
+	return points

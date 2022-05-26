@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scenes/Battle.gd" type="Script" id=1]
 [ext_resource path="res://assets/map/Water.png" type="Texture" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://themes/MinimalUI.tres" type="Theme" id=11]
 [ext_resource path="res://scripts/CanvasLayer.gd" type="Script" id=12]
 [ext_resource path="res://assets/9panel_a.png" type="Texture" id=13]
+[ext_resource path="res://assets/map/Nav-map.png" type="Texture" id=14]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Grass-deco.png 0"
@@ -26,6 +27,33 @@
 0/autotile/spacing = 0
 0/autotile/occluder_map = [  ]
 0/autotile/navpoly_map = [  ]
+0/autotile/priority_map = [  ]
+0/autotile/z_index_map = [  ]
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+
+[sub_resource type="NavigationPolygon" id=3]
+vertices = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
+
+[sub_resource type="TileSet" id=4]
+0/name = "Nav-map.png 0"
+0/texture = ExtResource( 14 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 128, 32 )
+0/tile_mode = 2
+0/autotile/icon_coordinate = Vector2( 0, 0 )
+0/autotile/tile_size = Vector2( 32, 32 )
+0/autotile/spacing = 0
+0/autotile/occluder_map = [  ]
+0/autotile/navpoly_map = [ Vector2( 1, 0 ), SubResource( 3 ) ]
 0/autotile/priority_map = [  ]
 0/autotile/z_index_map = [  ]
 0/occluder_offset = Vector2( 0, 0 )
@@ -55,7 +83,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Map" type="Node2D" parent="."]
+[node name="Map" type="Navigation2D" parent="."]
 
 [node name="BackgroundMap" type="TextureRect" parent="Map"]
 anchor_right = 1.0
@@ -83,6 +111,16 @@ cell_size = Vector2( 32, 32 )
 format = 1
 tile_data = PoolIntArray( 65543, 0, 327683, 65548, 0, 4, 131077, 0, 327682, 131079, 0, 1, 131080, 0, 1, 131087, 0, 1, 131088, 0, 1, 196613, 0, 196609, 196615, 0, 131072, 196616, 0, 131072, 196617, 0, 131072, 196618, 0, 131072, 196619, 0, 1, 196620, 0, 1, 196621, 0, 1, 196623, 0, 1, 262144, 0, 3, 262149, 0, 262145, 262150, 0, 196609, 262151, 0, 196608, 262152, 0, 196608, 262153, 0, 196608, 262154, 0, 196608, 262155, 0, 0, 262158, 0, 2, 262159, 0, 2, 262160, 0, 2, 327683, 0, 0, 327684, 0, 0, 327687, 0, 196608, 327688, 0, 196608, 327689, 0, 196608, 327690, 0, 196608, 327694, 0, 0, 327697, 0, 1, 393222, 0, 2, 393223, 0, 262144, 393224, 0, 262144, 393225, 0, 262144, 393226, 0, 262144, 393230, 0, 0, 393233, 0, 1, 393235, 0, 3, 458758, 0, 2, 458760, 0, 1, 458764, 0, 1, 458765, 0, 1, 458766, 0, 1, 458767, 0, 1, 458768, 0, 1, 524290, 0, 1, 524293, 0, 0, 524296, 0, 1, 524297, 0, 1, 524298, 0, 1, 524299, 0, 1, 524303, 0, 1, 589827, 0, 0, 589833, 0, 0, 589834, 0, 0, 655373, 0, 4 )
 
+[node name="TileMapNav" type="TileMap" parent="Map"]
+visible = false
+tile_set = SubResource( 4 )
+cell_size = Vector2( 32, 32 )
+format = 1
+tile_data = PoolIntArray( 65543, 0, 1, 131075, 0, 1, 131076, 0, 1, 131077, 0, 1, 131078, 0, 1, 131079, 0, 1, 131080, 0, 1, 196610, 0, 1, 196611, 0, 1, 196612, 0, 1, 196613, 0, 1, 196614, 0, 1, 196615, 0, 1, 196616, 0, 1, 196617, 0, 1, 196618, 0, 1, 262146, 0, 1, 262147, 0, 1, 262148, 0, 1, 262149, 0, 1, 262150, 0, 1, 262151, 0, 1, 262152, 0, 1, 262153, 0, 1, 262154, 0, 1, 327682, 0, 1, 327683, 0, 1, 327684, 0, 1, 327685, 0, 1, 327686, 0, 1, 327687, 0, 1, 327688, 0, 1, 327689, 0, 1, 327690, 0, 1, 393219, 0, 1, 393220, 0, 1, 393221, 0, 1, 393222, 0, 1, 393223, 0, 1, 393224, 0, 1, 393225, 0, 1, 393226, 0, 1, 458753, 0, 1, 458754, 0, 1, 458755, 0, 1, 458756, 0, 1, 458757, 0, 1, 458758, 0, 1, 458759, 0, 1, 458760, 0, 1, 458761, 0, 1, 524289, 0, 1, 524290, 0, 1, 524291, 0, 1, 524292, 0, 1, 524293, 0, 1, 524294, 0, 1, 524295, 0, 1, 524296, 0, 1, 589825, 0, 1, 589826, 0, 1, 589827, 0, 1, 589828, 0, 1, 589829, 0, 1, 589830, 0, 1, 589831, 0, 1, 655361, 0, 1, 655362, 0, 1, 655363, 0, 1, 655364, 0, 1, 655365, 0, 1, 720897, 0, 1, 720898, 0, 1 )
+
+[node name="Line2D" type="Line2D" parent="Map"]
+points = PoolVector2Array( 152, 291, 223, 279, 201, 238, 223, 234 )
+
 [node name="SelectorMap" type="Sprite" parent="Map"]
 texture = ExtResource( 4 )
 
@@ -103,7 +141,7 @@ align = 1
 position = Vector2( 112, 240 )
 
 [node name="Trop" parent="Map/Objects" instance=ExtResource( 6 )]
-position = Vector2( 136, 200 )
+position = Vector2( 163, 265 )
 
 [node name="Trop2" parent="Map/Objects" instance=ExtResource( 6 )]
 position = Vector2( 304, 248 )
