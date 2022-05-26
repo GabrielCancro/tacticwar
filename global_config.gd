@@ -26,6 +26,11 @@ func pos_to_tile(pos):
 func tile_to_pos(tile):
 	return TILE_MAP.map_to_world( tile ) + Vector2(16,16)
 
+func normalize_pos(pos):
+	pos = pos/32
+	pos = Vector2(floor(pos.x),floor(pos.y))
+	return pos*32+Vector2(16,16)
+
 func setCurrentSelect(go):
 	currentSelect = go
 	if go == null: currentSelectType = null
@@ -33,6 +38,10 @@ func setCurrentSelect(go):
 	UI.onSelectObject(go)
 
 func get_nav_path(from,to):
-	var points = NAV.get_simple_path(from,to, false)
+	var points = Array( NAV.get_simple_path(normalize_pos(from),normalize_pos(to), false) )
+	points.pop_front()
+	if!points: return [from]
+	points[points.size()-1] = to
 	NAV.get_node("Line2D").points = points
+	NAV.get_node("Line2D2").points = PoolVector2Array([from,to])
 	return points

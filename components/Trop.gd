@@ -44,7 +44,7 @@ func play_units_anim(anim_name,force=false):
 
 #EXTERNALS
 func set_destine(des):
-	path = Array( GC.get_nav_path(position,des) )
+	path = GC.get_nav_path(position,des)
 
 func teleport_to_tile(tile):
 	position = GC.tile_to_pos( tile )
