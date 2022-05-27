@@ -5,8 +5,6 @@ var MOUSE_POS = Vector2()
 var MOVING_CAMERA = false
 
 func _process(delta):
-	get_node("/root/Battle/CanvasLayer/Header/Panel/Label").text = str( get_node("/root/Battle/Map/TileMapNav").get_global_mouse_position()  )
-	get_node("/root/Battle/CanvasLayer/Header/Panel/Label").text += str( GC.normalize_pos(get_node("/root/Battle/Map/TileMapNav").get_global_mouse_position() ) )
 	GC.mouseTile = GC.pos_to_tile( get_node("/root/Battle/Map/TileMapNav").get_global_mouse_position() )
 	GC.mouseTilePos = GC.tile_to_pos( GC.mouseTile )
 
@@ -63,6 +61,5 @@ func apply_destine_action(tile):
 		else:
 			GC.currentSelect.set_destine(GC.mouseTilePos)
 			GC.currentSelect.unselect()
-		
 	if GC.currentSelectType == "Build":
 		GC.currentSelect.unselect()

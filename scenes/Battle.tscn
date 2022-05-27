@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scenes/Battle.gd" type="Script" id=1]
 [ext_resource path="res://assets/map/Water.png" type="Texture" id=2]
@@ -15,6 +15,8 @@
 [ext_resource path="res://assets/9panel_a.png" type="Texture" id=13]
 [ext_resource path="res://assets/map/Nav-map.png" type="Texture" id=14]
 [ext_resource path="res://scripts/AStar.gd" type="Script" id=15]
+[ext_resource path="res://components/Header.tscn" type="PackedScene" id=16]
+[ext_resource path="res://scripts/TurnManager.gd" type="Script" id=17]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Grass-deco.png 0"
@@ -165,57 +167,55 @@ script = ExtResource( 8 )
 [node name="ClickManager" type="Node" parent="."]
 script = ExtResource( 9 )
 
+[node name="TurnManager" type="Node" parent="."]
+script = ExtResource( 17 )
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource( 12 )
 
-[node name="Header" type="Control" parent="CanvasLayer"]
-anchor_right = 1.0
+[node name="Header" parent="CanvasLayer" instance=ExtResource( 16 )]
+
+[node name="Build" type="NinePatchRect" parent="CanvasLayer"]
+anchor_top = 1.0
 anchor_bottom = 1.0
-
-[node name="Panel" type="Panel" parent="CanvasLayer/Header"]
-anchor_right = 1.0
-margin_bottom = 33.0
-
-[node name="Label" type="Label" parent="CanvasLayer/Header/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-text = "RESOURCES"
-align = 1
-valign = 1
-
-[node name="Build" type="Control" parent="CanvasLayer"]
-visible = false
-margin_left = 8.0
-margin_top = 40.0
-margin_right = 144.0
-margin_bottom = 224.0
-theme = ExtResource( 11 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Panel" type="NinePatchRect" parent="CanvasLayer/Build"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+margin_top = -93.0
+margin_right = 343.0
 texture = ExtResource( 13 )
 patch_margin_left = 6
 patch_margin_top = 6
 patch_margin_right = 6
 patch_margin_bottom = 6
 
-[node name="Label" type="Label" parent="CanvasLayer/Build/Panel"]
+[node name="lb_level" type="Label" parent="CanvasLayer/Build"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 7.0
 margin_top = 7.0
+margin_right = -234.0
+margin_bottom = -72.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "CITY"
+
+[node name="lb_pob" type="Label" parent="CanvasLayer/Build"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 85.0
+margin_top = 7.0
+margin_right = -12.0
+margin_bottom = -72.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "10 +1"
+align = 2
+
+[node name="lb_prod" type="Label" parent="CanvasLayer/Build"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 7.0
+margin_top = 71.0
 margin_right = -8.0
 margin_bottom = -8.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "CITY"
+text = "com +5   mad +5   pie +1   oro +1"
 
 [node name="Trop" type="Control" parent="CanvasLayer"]
 visible = false

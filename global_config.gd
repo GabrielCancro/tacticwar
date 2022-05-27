@@ -5,6 +5,13 @@ var mouseTilePos = Vector2(0,0)
 var currentSelect
 var currentSelectType
 var TropManager
+var currentTurn = 1
+var humanPlayer = 1
+
+var RECS = [
+	{"com":0, "mad":0, "pie":0, "oro":0},
+	{"com":100, "mad":100, "pie":50, "oro":50}
+]
 
 var OPTIONS = {
 	"trop_mov_vel":1.5
@@ -12,7 +19,9 @@ var OPTIONS = {
 
 onready var TILE_MAP = get_node("/root/Battle/Map/TileMapNav")
 onready var UI = get_node("/root/Battle/CanvasLayer")
+onready var HEADER = get_node("/root/Battle/CanvasLayer/Header")
 onready var MAP = get_node("/root/Battle/Map")
+onready var TURNER = get_node("/root/Battle/TurnManager")
 
 func _ready():
 	pass # Replace with function body.

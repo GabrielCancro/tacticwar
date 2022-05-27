@@ -15,7 +15,16 @@ func onSelectObject(go):
 
 func onSelectBuild(go):
 	$Build.visible = true
-	
+	$Build/lb_level.text = "CITY"
+	$Build/lb_pob.text = "pob "+str(go.POB.cnt)+" +"+str(go.POB.inc)
+	$Build/lb_prod.text = ""
+	for p in go.PROD: 
+		if(go.PROD[p]!=0 && p!="pob"): 
+			$Build/lb_prod.text += p +" "
+			if(go.PROD[p]>0): $Build/lb_prod.text += "+" 
+			$Build/lb_prod.text += str(go.PROD[p])+"   "
+		
+
 func onSelectTrop(go):
 	$Trop.visible = true
 	$Trop/Panel/Label.text = "TROP"

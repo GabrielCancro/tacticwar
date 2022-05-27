@@ -1,6 +1,7 @@
 extends Node2D
 
 var STATE = "NONE"
+var OWN = 1
 var current_anim
 var tile_pos = Vector2(0,0)
 var path = []

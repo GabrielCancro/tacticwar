@@ -1,6 +1,8 @@
 extends Node2D
 
-var own = 1
+var OWN = 1
+var POB = {"cnt":3,"inc":1,"max":10}
+var PROD = { "com":5,"mad":5,"pie":1,"oro":1}
 
 func _ready():
 	add_to_group("builds_group")
