@@ -4,7 +4,7 @@ func _ready():
 	hide_all_ui()
 
 func hide_all_ui():
-	$Build.visible = false
+	$Build_panel.hide_panel()
 	$Trop.visible = false
 
 func onSelectObject(go):
@@ -14,16 +14,7 @@ func onSelectObject(go):
 	elif go.get_class() == "Build": onSelectBuild(go)
 
 func onSelectBuild(go):
-	$Build.visible = true
-	$Build/lb_level.text = "CITY"
-	$Build/lb_pob.text = "pob "+str(go.POB.cnt)+" +"+str(go.POB.inc)
-	$Build/lb_prod.text = ""
-	for p in go.PROD: 
-		if(go.PROD[p]!=0 && p!="pob"): 
-			$Build/lb_prod.text += p +" "
-			if(go.PROD[p]>0): $Build/lb_prod.text += "+" 
-			$Build/lb_prod.text += str(go.PROD[p])+"   "
-		
+	$Build_panel.show_panel(go)
 
 func onSelectTrop(go):
 	$Trop.visible = true

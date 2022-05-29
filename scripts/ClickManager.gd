@@ -1,30 +1,42 @@
 extends Node
 
 var DOWN_POS = Vector2()
+var DOWN_POS_CAMERA = Vector2()
+var UP_POS = Vector2()
 var MOUSE_POS = Vector2()
 var MOVING_CAMERA = false
 
+onready var CAMERA = get_node("/root/Battle/Camera2D");
+onready var TILE_MAP_NAV = get_node("/root/Battle/Map/TileMapNav");
+
+func _ready():
+	CAMERA.get_node("Button").connect("button_down",self,"onDownMouseCamera")
+	CAMERA.get_node("Button").connect("button_up",self,"onUpMouseCamera")
+	
 func _process(delta):
-	GC.mouseTile = GC.pos_to_tile( get_node("/root/Battle/Map/TileMapNav").get_global_mouse_position() )
+	GC.mouseTile = GC.pos_to_tile( TILE_MAP_NAV.get_global_mouse_position()  )
 	GC.mouseTilePos = GC.tile_to_pos( GC.mouseTile )
 
-func _input(event):
-	if event is InputEventMouseButton:
-		if event.button_index == 1:
-			if event.is_pressed(): DOWN_POS = event.position
-			else:
-				if !MOVING_CAMERA: onTileClick(GC.mouseTile)
-				MOVING_CAMERA = false
-				DOWN_POS = null
-	elif event is InputEventMouseMotion:
-		MOUSE_POS = event.position
-		if DOWN_POS && (DOWN_POS.distance_to(MOUSE_POS)>5): MOVING_CAMERA=true
-		if MOVING_CAMERA: move_map()
+func onDownMouseCamera():
+	DOWN_POS = TILE_MAP_NAV.get_global_mouse_position() 
+	DOWN_POS_CAMERA = get_viewport().get_mouse_position()
+	MOVING_CAMERA = false
 
-func move_map():
-#	print("move map",(MOUSE_POS-DOWN_POS))
-	get_node("/root/Battle/Camera2D").position += DOWN_POS-MOUSE_POS
-	DOWN_POS = MOUSE_POS
+func onUpMouseCamera():
+	UP_POS = TILE_MAP_NAV.get_global_mouse_position() 
+	if(DOWN_POS.distance_to(UP_POS)<5): onTileClick( GC.pos_to_tile(UP_POS) )
+	DOWN_POS = null
+	DOWN_POS_CAMERA = null
+	UP_POS = null
+	MOVING_CAMERA = false
+	
+func _input(event):
+	if DOWN_POS_CAMERA && event is InputEventMouseMotion:
+		MOUSE_POS = event.position
+		if (DOWN_POS_CAMERA.distance_to(MOUSE_POS)>5): MOVING_CAMERA = true
+		if MOVING_CAMERA:
+			CAMERA.position += DOWN_POS_CAMERA-MOUSE_POS
+			DOWN_POS_CAMERA = MOUSE_POS
 
 func onTileClick(tile):
 #	print("onTileClick ",tile)

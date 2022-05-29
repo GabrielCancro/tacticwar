@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scenes/Battle.gd" type="Script" id=1]
 [ext_resource path="res://assets/map/Water.png" type="Texture" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://scripts/AStar.gd" type="Script" id=15]
 [ext_resource path="res://components/Header.tscn" type="PackedScene" id=16]
 [ext_resource path="res://scripts/TurnManager.gd" type="Script" id=17]
+[ext_resource path="res://components/Build_panel.tscn" type="PackedScene" id=18]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Grass-deco.png 0"
@@ -86,6 +87,14 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="Button" type="Button" parent="Camera2D"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -359.0
+margin_top = -200.0
+margin_right = 361.0
+margin_bottom = 200.0
+
 [node name="Map" type="Node2D" parent="."]
 script = ExtResource( 15 )
 
@@ -97,6 +106,7 @@ margin_top = -659.0
 margin_right = 453.0
 margin_bottom = 184.0
 rect_scale = Vector2( 2, 2 )
+mouse_filter = 2
 texture = ExtResource( 2 )
 stretch_mode = 2
 __meta__ = {
@@ -175,47 +185,7 @@ script = ExtResource( 12 )
 
 [node name="Header" parent="CanvasLayer" instance=ExtResource( 16 )]
 
-[node name="Build" type="NinePatchRect" parent="CanvasLayer"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_top = -93.0
-margin_right = 343.0
-texture = ExtResource( 13 )
-patch_margin_left = 6
-patch_margin_top = 6
-patch_margin_right = 6
-patch_margin_bottom = 6
-
-[node name="lb_level" type="Label" parent="CanvasLayer/Build"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 7.0
-margin_top = 7.0
-margin_right = -234.0
-margin_bottom = -72.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "CITY"
-
-[node name="lb_pob" type="Label" parent="CanvasLayer/Build"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 85.0
-margin_top = 7.0
-margin_right = -12.0
-margin_bottom = -72.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "10 +1"
-align = 2
-
-[node name="lb_prod" type="Label" parent="CanvasLayer/Build"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 7.0
-margin_top = 71.0
-margin_right = -8.0
-margin_bottom = -8.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "com +5   mad +5   pie +1   oro +1"
+[node name="Build_panel" parent="CanvasLayer" instance=ExtResource( 18 )]
 
 [node name="Trop" type="Control" parent="CanvasLayer"]
 visible = false
