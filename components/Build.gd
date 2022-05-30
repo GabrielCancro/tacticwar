@@ -2,7 +2,8 @@ extends Node2D
 
 var OWN = 1
 var POB = {"cnt":3,"inc":1,"max":10}
-var PROD = { "com":5,"mad":5,"pie":1,"oro":1}
+var PROD = { "food":5,"wood":5,"stone":1,"gold":1}
+var BUILDS = {"house":2}
 
 func _ready():
 	add_to_group("builds_group")

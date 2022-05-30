@@ -9,8 +9,8 @@ var currentTurn = 1
 var humanPlayer = 1
 
 var RECS = [
-	{"com":0, "mad":0, "pie":0, "oro":0},
-	{"com":100, "mad":100, "pie":50, "oro":50}
+	{"food":0, "wood":0, "stone":0, "gold":0},
+	{"food":1000, "wood":1000, "stone":500, "gold":500}
 ]
 
 var OPTIONS = {
