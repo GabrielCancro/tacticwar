@@ -8,6 +8,7 @@ func _ready():
 
 func update_header():
 	calc_all_prod()
+	$NextTurn/Button.text = "END TURN "+str(GC.turn)
 	var RECS_PANELS = $HBox.get_children()
 	var index = 0
 	for r in GAMEDATA.REC_NAMES:

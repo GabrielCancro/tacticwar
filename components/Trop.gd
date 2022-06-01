@@ -1,10 +1,13 @@
 extends Node2D
 
 var STATE = "NONE"
-var OWN = 1
+export var OWN = 1
 var current_anim
 var tile_pos = Vector2(0,0)
 var path = []
+var confirm_move = false
+var steps = 0
+
 onready var data = { 
 	"own":1,
 	"units":{ "cam":5,"gue":5,"arq":5,"jin":1,"cat":0}, 
@@ -20,10 +23,13 @@ func _ready():
 	GC.TropManager.calc_hps(data)
 	GC.TropManager.recreate_units_nodes(data)
 	teleport_to_tile(GC.pos_to_tile(position))
+	tile_pos = GC.pos_to_tile(position)
+	restore_steps()
+	$Panel.modulate = GAMEDATA.COLORS[OWN]
 	pass # Replace with function body.
 
 func _process(delta):
-	if( path.size() != 0 ): move_trop()
+	if( path.size() != 0 && confirm_move && steps>0): move_trop()
 	else: play_units_anim("idle")
 	z_index = position.y
 
@@ -34,18 +40,26 @@ func move_trop():
 	if( position.distance_to(path[0]) < GC.OPTIONS.trop_mov_vel ): 
 		position = path[0]
 		path.pop_front()
+		steps -= 1
+		if(steps==0): path = []
 	tile_pos = GC.pos_to_tile(position)
+
+func restore_steps():
+	steps = GAMEDATA.VARS[OWN].trop_steps
+	play_units_anim("idle",true)
 
 func play_units_anim(anim_name,force=false):
 	if current_anim == anim_name && !force: return
-	current_anim = anim_name
+	current_anim = anim_name	
 	for u in $Units.get_children():
 		u.play(anim_name)
+		u.playing = (steps>0)
 		u.frame = randi()%4-1
 
 #EXTERNALS
 func set_destine(des):
-	path = GC.get_nav_path(position,des)
+	path = GC.get_nav_path(position,des,steps)
+	path.pop_front()
 
 func teleport_to_tile(tile):
 	position = GC.tile_to_pos( tile )
@@ -57,9 +71,12 @@ func select():
 
 func unselect():
 	GC.setCurrentSelect(null)
+	GC.clear_path_lines()
 	modulate.b = 1
 
 func fx_atack(def):
+	steps = 0
+	play_units_anim("idle",true)
 	var orig_pos = position
 	$Tween.interpolate_property(self,"position", position, (position+def.position)/2, .2,Tween.TRANS_QUAD,Tween.EASE_IN)
 	$Tween.start()

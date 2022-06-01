@@ -168,7 +168,14 @@ position = Vector2( 163, 265 )
 [node name="Trop2" parent="Map/Objects" instance=ExtResource( 6 )]
 position = Vector2( 304, 248 )
 
+[node name="Trop3" parent="Map/Objects" instance=ExtResource( 6 )]
+position = Vector2( 144, 144 )
+OWN = 2
+
 [node name="Build" parent="Map/Objects" instance=ExtResource( 10 )]
+position = Vector2( 112, 240 )
+
+[node name="Build2" parent="Map/Objects" instance=ExtResource( 10 )]
 position = Vector2( 112, 240 )
 
 [node name="TropManager" type="Node" parent="."]

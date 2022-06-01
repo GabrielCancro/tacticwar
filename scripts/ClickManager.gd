@@ -41,7 +41,8 @@ func _input(event):
 func onTileClick(tile):
 #	print("onTileClick ",tile)
 	if(GC.currentSelect):
-		apply_destine_action(tile)
+		if(GC.currentSelect.OWN==GC.humanPlayer && GC.currentSelect.OWN==GC.currentTurn): apply_destine_action(tile)
+		else: GC.currentSelect.unselect()
 	else:
 		var build = get_element_in_tile(tile,"builds_group");
 		if build: build.select()
@@ -61,17 +62,23 @@ func apply_destine_action(tile):
 #	print("DESTINE ",GC.currentSelectType," to ",tile)
 	
 	if GC.currentSelectType == "Trop":
+		GC.currentSelect.confirm_move = false
 		if trop_dest: 
 			if(GC.currentSelect == trop_dest):
 				GC.currentSelect.unselect()
 			elif(GC.currentSelect.tile_pos.distance_to(trop_dest.tile_pos)<=2):
-				GC.TropManager.atack(GC.currentSelect.data,trop_dest.data)
+				if(GC.currentSelect.steps>0): GC.TropManager.atack(GC.currentSelect.data,trop_dest.data)
 				GC.currentSelect.unselect()
 			else: GC.currentSelect.unselect()
 		elif build_dest:
 			GC.currentSelect.unselect()
-		else:
-			GC.currentSelect.set_destine(GC.mouseTilePos)
-			GC.currentSelect.unselect()
+		else:			
+			print(GC.currentSelect.path.back(),GC.mouseTilePos)
+			if(GC.currentSelect.path.back()==GC.mouseTilePos): 
+				GC.currentSelect.confirm_move = true
+				GC.currentSelect.set_destine(GC.mouseTilePos)
+				GC.currentSelect.unselect();
+			else: 
+				GC.currentSelect.set_destine(GC.mouseTilePos)
 	if GC.currentSelectType == "Build":
 		GC.currentSelect.unselect()

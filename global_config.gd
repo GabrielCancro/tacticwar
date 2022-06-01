@@ -7,6 +7,7 @@ var currentSelectType
 var TropManager
 var currentTurn = 1
 var humanPlayer = 1
+var turn = 1
 
 var RECS = [
 	{"food":0, "wood":0, "stone":0, "gold":0, "pop":0},
@@ -46,13 +47,18 @@ func setCurrentSelect(go):
 	else: currentSelectType = go.get_class()
 	UI.onSelectObject(go)
 
-func get_nav_path(from,to):
+func get_nav_path(from,to,steps=20):
 	from = GC.pos_to_tile(from)
 	to = GC.pos_to_tile(to)
 	var points = []
 	for p in MAP.get_nav_path(from,to): points.append( GC.tile_to_pos(p) )
 	if points.size()<=0: points = [GC.tile_to_pos(from)]
-	print("POINTS ",points)
-	MAP.get_node("Line2D").points = points
-	MAP.get_node("Line2D2").points = PoolVector2Array([from,to])
+	var cuted_points = points.slice(0,steps)
+	print("POINTS ",cuted_points, steps)
+	MAP.get_node("Line2D").points = cuted_points
+	MAP.get_node("Line2D2").points = points
 	return points
+
+func clear_path_lines():
+	MAP.get_node("Line2D").points = []
+	MAP.get_node("Line2D2").points = []
