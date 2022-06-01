@@ -7,10 +7,12 @@ func _ready():
 	update_header()
 
 func update_header():
-	$lb_recs.text = ""
 	calc_all_prod()
+	var RECS_PANELS = $HBox.get_children()
+	var index = 0
 	for r in GAMEDATA.REC_NAMES:
-		$lb_recs.text += r.capitalize() + ":"+str( floor(GC.RECS[GC.humanPlayer][r]) )+"+"+str(ALL_PROD[r])+"    "
+		RECS_PANELS[index].set_info( r, floor(GC.RECS[GC.humanPlayer][r]), ALL_PROD[r] )
+		index += 1
 
 func calc_all_prod():
 	ALL_PROD = {}

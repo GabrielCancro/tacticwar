@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://themes/MinimalUI.tres" type="Theme" id=1]
 [ext_resource path="res://components/Header.gd" type="Script" id=2]
 [ext_resource path="res://assets/9panel_a.png" type="Texture" id=3]
 [ext_resource path="res://themes/awesome_font_1.tres" type="DynamicFont" id=4]
+[ext_resource path="res://components/Rec_one_panel.tscn" type="PackedScene" id=5]
 
 [node name="Header" type="Control"]
 anchor_right = 1.0
@@ -14,13 +15,6 @@ script = ExtResource( 2 )
 [node name="Panel" type="Panel" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-
-[node name="lb_recs" type="Label" parent="."]
-margin_right = 560.0
-margin_bottom = 32.0
-text = "RESOURCES"
-align = 1
-valign = 1
 
 [node name="NextTurn" type="NinePatchRect" parent="."]
 anchor_right = 1.0
@@ -45,3 +39,29 @@ custom_colors/font_color_pressed = Color( 0.392157, 0.392157, 0.392157, 1 )
 custom_fonts/font = ExtResource( 4 )
 text = "END TURN"
 flat = true
+
+[node name="HBox" type="HBoxContainer" parent="."]
+margin_right = 560.0
+margin_bottom = 32.0
+custom_constants/separation = 19
+alignment = 1
+
+[node name="r1" parent="HBox" instance=ExtResource( 5 )]
+margin_left = 22.0
+margin_right = 110.0
+
+[node name="r2" parent="HBox" instance=ExtResource( 5 )]
+margin_left = 129.0
+margin_right = 217.0
+
+[node name="r3" parent="HBox" instance=ExtResource( 5 )]
+margin_left = 236.0
+margin_right = 324.0
+
+[node name="r4" parent="HBox" instance=ExtResource( 5 )]
+margin_left = 343.0
+margin_right = 431.0
+
+[node name="r5" parent="HBox" instance=ExtResource( 5 )]
+margin_left = 450.0
+margin_right = 538.0

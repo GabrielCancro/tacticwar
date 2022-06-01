@@ -162,14 +162,14 @@ align = 1
 
 [node name="Objects" type="Node2D" parent="Map"]
 
-[node name="Build" parent="Map/Objects" instance=ExtResource( 10 )]
-position = Vector2( 112, 240 )
-
 [node name="Trop" parent="Map/Objects" instance=ExtResource( 6 )]
 position = Vector2( 163, 265 )
 
 [node name="Trop2" parent="Map/Objects" instance=ExtResource( 6 )]
 position = Vector2( 304, 248 )
+
+[node name="Build" parent="Map/Objects" instance=ExtResource( 10 )]
+position = Vector2( 112, 240 )
 
 [node name="TropManager" type="Node" parent="."]
 script = ExtResource( 8 )
