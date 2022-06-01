@@ -1,16 +1,16 @@
 extends Node
 
-var REC_NAMES = ["food","wood","stone","gold"]
+var REC_NAMES = ["food","wood","stone","gold","pop"]
 
 var VARS = [{
-	"farm_prod":3, "sawmill_prod":3, 
+	"farm_prod":2, "sawmill_prod":3, 
 }]
 
 var BUILDS = {
 	"house":{"food":20, "wood":50, "desc":"Increment limit of city poblation"},
-	"farm":{"food":20, "wood":60, "desc":"Increment production of food"},
-	"sawmill":{"food":30, "wood":30, "desc":"Increment production of wood"},
-	"tower":{"wood":100, "stone":100, "desc":"Defensive to attack enemy trops"},
+	"farm":{"food":20, "wood":60, "pop":1, "desc":"Increment production of food"},
+	"sawmill":{"food":30, "wood":30, "pop":1, "desc":"Increment production of wood"},
+	"tower":{"wood":100, "stone":100, "pop":1, "desc":"Defensive to attack enemy trops"},
 	"wall":{"wood":50, "stone":100, "desc":"Defensive to resistence enemies attacks"},
 }
 

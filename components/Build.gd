@@ -1,8 +1,7 @@
 extends Node2D
 
-var OWN = 1
-var POB = {"cnt":3,"inc":1,"max":10}
-var PROD = { "food":5,"wood":5,"stone":1,"gold":1}
+export var OWN = 1
+export var TYPE = "CITY"
 var BUILDS = {"house":2}
 
 func _ready():
@@ -21,3 +20,11 @@ func unselect():
 	modulate.b = 1
 
 func get_class(): return "Build"
+
+func get_prod():
+	var PROD = { "food":0,"wood":0,"stone":0,"gold":0,"pop":0}
+	if TYPE == "CITY":
+		if (BUILDS.has("house")): PROD.pop += BUILDS.house * .2
+		if (BUILDS.has("farm")): PROD.food += BUILDS.farm * GAMEDATA.VARS[OWN].farm_prod
+		if (BUILDS.has("sawmill")): PROD.wood += BUILDS.sawmill * GAMEDATA.VARS[OWN].sawmill_prod
+	return PROD

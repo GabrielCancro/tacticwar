@@ -17,13 +17,14 @@ func show_panel(go):
 	set_buttons_info()
 	$building/buy.visible = false
 	$lb_level.text = "CITY"
-	$lb_pob.text = "pob "+str(GO.POB.cnt)+" +"+str(GO.POB.inc)
+#	$lb_pob.text = "pob "+str(GO.POB.cnt)+"/"+str(GO.POB.max)+"    "+str(GO.POB.prg_inc*10)+"% +"+ str(GO.POB.inc)
 	$lb_prod.text = ""
-	for p in GO.PROD: 
-		if(GO.PROD[p]!=0 && p!="pob"): 
+	var PROD = GO.get_prod()
+	for p in PROD: 
+		if(PROD[p]!=0 && p!="pob"): 
 			$lb_prod.text += p
-			if(GO.PROD[p]>0): $lb_prod.text += "+" 
-			$lb_prod.text += str(GO.PROD[p])+"   "
+			if(PROD[p]>0): $lb_prod.text += "+" 
+			$lb_prod.text += str(PROD[p])+"   "
 
 func set_buttons_info():
 	var i = 0 
@@ -44,6 +45,9 @@ func on_button_build_click(key):
 	$building/buy.visible=true
 	$building/buy/lb_name.text = key.capitalize()
 	$building/buy/lb_desc.text = GAMEDATA.BUILDS[key].desc
+	if check_recs(): $building/buy/lb_rec.modulate = Color(1,1,1,1)
+	else: $building/buy/lb_rec.modulate = Color(30,10,10,1)
+	$building/buy/Button.visible = check_recs()
 	var rec = ""
 	for i in GAMEDATA.REC_NAMES:
 		if(GAMEDATA.BUILDS[key].has(i)): rec += "   "+i+":"+str(GAMEDATA.BUILDS[key][i])
@@ -51,16 +55,17 @@ func on_button_build_click(key):
 	print("CLICK ",key)
 
 func onBuildHammerClick():
-	var check_has_recs = true
+	if !check_recs(): return
+	if !GO.BUILDS.has(STRUCTURE): GO.BUILDS[STRUCTURE] = 0
+	GO.BUILDS[STRUCTURE] += 1
 	for i in GAMEDATA.REC_NAMES:
 		if(GAMEDATA.BUILDS[STRUCTURE].has(i)):
-			if(GC.RECS[GO.OWN][i]<GAMEDATA.BUILDS[STRUCTURE][i]): check_has_recs = false
-	if check_has_recs:
-		if !GO.BUILDS.has(STRUCTURE): GO.BUILDS[STRUCTURE] = 0
-		GO.BUILDS[STRUCTURE] += 1
-		for i in GAMEDATA.REC_NAMES:
-			if(GAMEDATA.BUILDS[STRUCTURE].has(i)):
-				GC.RECS[GO.OWN][i] -= GAMEDATA.BUILDS[STRUCTURE][i]
-	print("BUILDING "+STRUCTURE+"  "+str(check_has_recs))
+			GC.RECS[GO.OWN][i] -= GAMEDATA.BUILDS[STRUCTURE][i]
 	GC.HEADER.update_header()
 	show_panel(GO)
+
+func check_recs():
+	for i in GAMEDATA.REC_NAMES:
+		if(GAMEDATA.BUILDS[STRUCTURE].has(i)):
+			if(GC.RECS[GO.OWN][i]<GAMEDATA.BUILDS[STRUCTURE][i]): return false
+	return true

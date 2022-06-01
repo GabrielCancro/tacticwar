@@ -16,8 +16,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="lb_recs" type="Label" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
+margin_right = 560.0
+margin_bottom = 32.0
 text = "RESOURCES"
 align = 1
 valign = 1

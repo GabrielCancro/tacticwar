@@ -8,7 +8,7 @@ func onNextTurnClick():
 	var own = GC.currentTurn
 	for b in get_tree().get_nodes_in_group("builds_group"):
 		if(b.OWN != own): continue
-		for p in b.PROD: GC.RECS[own][p] += b.PROD[p]
-		b.POB.cnt = min(b.POB.max, b.POB.cnt+b.POB.inc)
+		var PROD = b.get_prod()
+		for p in PROD: GC.RECS[own][p] += PROD[p]
 	GC.HEADER.update_header()
 	print("END TURN")
