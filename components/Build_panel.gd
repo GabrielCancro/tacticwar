@@ -25,6 +25,7 @@ func show_panel(go):
 			$lb_prod.text += p
 			if(PROD[p]>0): $lb_prod.text += "+" 
 			$lb_prod.text += str(PROD[p])+"   "
+	$lb_units.text = str(GO.UNITS)
 
 func set_buttons_info():
 	var i = 0 

@@ -369,3 +369,14 @@ margin_bottom = -4.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "food+10   wood+10   stone+10   gold+10   pop+0.5"
+
+[node name="lb_units" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 7.0
+margin_top = -16.0
+margin_right = -8.0
+margin_bottom = -93.0
+custom_colors/font_color = Color( 0.701961, 1, 0.380392, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "food+10   wood+10   stone+10   gold+10   pop+0.5"

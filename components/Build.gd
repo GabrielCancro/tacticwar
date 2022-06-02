@@ -3,6 +3,7 @@ extends Node2D
 export var OWN = 1
 export var TYPE = "CITY"
 var BUILDS = {"house":2}
+var UNITS = { "cam":0,"gue":0,"arq":0,"jin":0,"cat":0}
 
 func _ready():
 	add_to_group("builds_group")

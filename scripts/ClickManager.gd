@@ -71,8 +71,11 @@ func apply_destine_action(tile):
 				GC.currentSelect.unselect()
 			else: GC.currentSelect.unselect()
 		elif build_dest:
+			if(GC.currentSelect.OWN==build_dest.OWN && 
+			GC.currentSelect.tile_pos.distance_to(GC.pos_to_tile(build_dest.position))<=2):
+				guard_trop_in_build(GC.currentSelect,build_dest)
 			GC.currentSelect.unselect()
-		else:			
+		else:
 			print(GC.currentSelect.path.back(),GC.mouseTilePos)
 			if(GC.currentSelect.path.back()==GC.mouseTilePos): 
 				GC.currentSelect.confirm_move = true
@@ -82,3 +85,9 @@ func apply_destine_action(tile):
 				GC.currentSelect.set_destine(GC.mouseTilePos)
 	if GC.currentSelectType == "Build":
 		GC.currentSelect.unselect()
+
+func guard_trop_in_build(trop,build):
+	for u in trop.data.units:
+		build.UNITS[u] += trop.data.units[u]
+	trop.remove_trop()
+	print("guard_trop_in_build ",trop," ",build)
