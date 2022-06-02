@@ -76,8 +76,8 @@ func apply_destine_action(tile):
 				guard_trop_in_build(GC.currentSelect,build_dest)
 			GC.currentSelect.unselect()
 		else:
-			print(GC.currentSelect.path.back(),GC.mouseTilePos)
-			if(GC.currentSelect.path.back()==GC.mouseTilePos): 
+#			print(GC.currentSelect.path.back(),GC.mouseTilePos)
+			if(GC.currentSelect.path.size()>0 && GC.currentSelect.path.back()==GC.mouseTilePos): 
 				GC.currentSelect.confirm_move = true
 				GC.currentSelect.set_destine(GC.mouseTilePos)
 				GC.currentSelect.unselect();
@@ -90,4 +90,5 @@ func guard_trop_in_build(trop,build):
 	for u in trop.data.units:
 		build.UNITS[u] += trop.data.units[u]
 	trop.remove_trop()
-	print("guard_trop_in_build ",trop," ",build)
+	build.update_units_label()
+#	print("guard_trop_in_build ",trop," ",build)

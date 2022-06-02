@@ -6,6 +6,8 @@ var STRUCTURE
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$building/buy/Button.connect("button_down",self,"onBuildHammerClick")
+	for b in $building/HBox.get_children():
+		(b.get_node("Button") as Button).connect("button_down",self,"on_button_build_click",[ GAMEDATA.BUILDS.keys()[b.get_index()] ])
 	pass
 
 func hide_panel():
@@ -25,6 +27,12 @@ func show_panel(go):
 			$lb_prod.text += p
 			if(PROD[p]>0): $lb_prod.text += "+" 
 			$lb_prod.text += str(PROD[p])+"   "
+	
+	var PANELS = $units/VBox.get_children()
+	var index = 0
+	for u in GO.UNITS: 
+		PANELS[index].set_info( u, GO.UNITS[u], 0 )
+		index += 1
 	$lb_units.text = str(GO.UNITS)
 
 func set_buttons_info():
@@ -35,8 +43,7 @@ func set_buttons_info():
 			var key = GAMEDATA.BUILDS.keys()[i]
 			b.get_node("lb_name").text = key.capitalize()
 			if(!GO.BUILDS.has(key)):GO.BUILDS[key] = 0
-			b.get_node("lb_cant").text = "x"+str(GO.BUILDS[key])
-			(b.get_node("Button") as Button).connect("button_down",self,"on_button_build_click",[key])
+			b.get_node("lb_cant").text = "x"+str(GO.BUILDS[key])			
 			print("kay build ",key)
 		else: b.visible=false
 		i+=1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/9panel_a.png" type="Texture" id=1]
 [ext_resource path="res://assets/9panel_d.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://themes/awesome_font_1.tres" type="DynamicFont" id=4]
 [ext_resource path="res://assets/awesome.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://assets/hammer.png" type="Texture" id=6]
+[ext_resource path="res://components/Trop_one_panel.tscn" type="PackedScene" id=7]
 
 [sub_resource type="DynamicFont" id=4]
 size = 24
@@ -380,3 +381,31 @@ margin_bottom = -93.0
 custom_colors/font_color = Color( 0.701961, 1, 0.380392, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "food+10   wood+10   stone+10   gold+10   pop+0.5"
+
+[node name="units" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="VBox" type="VBoxContainer" parent="units"]
+margin_top = -146.0
+margin_right = 64.0
+margin_bottom = -10.0
+custom_constants/separation = -6
+
+[node name="t1" parent="units/VBox" instance=ExtResource( 7 )]
+
+[node name="t2" parent="units/VBox" instance=ExtResource( 7 )]
+margin_top = 26.0
+margin_bottom = 58.0
+
+[node name="t3" parent="units/VBox" instance=ExtResource( 7 )]
+margin_top = 52.0
+margin_bottom = 84.0
+
+[node name="t4" parent="units/VBox" instance=ExtResource( 7 )]
+margin_top = 78.0
+margin_bottom = 110.0
+
+[node name="t5" parent="units/VBox" instance=ExtResource( 7 )]
+margin_top = 104.0
+margin_bottom = 136.0

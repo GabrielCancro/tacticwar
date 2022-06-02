@@ -15,14 +15,8 @@ var UNITS_ACC={
 	"cat":{ "cam":5,"gue":4,"arq":2,"jin":3,"cat":1},
 }
 
-onready var trop1 = { "units":{ "cam":5,"gue":5,"arq":5,"jin":1,"cat":0}, "hps":{}, "hpt":0, "unitsNode":get_node("/root/Battle/Trop/Units") }
-onready var trop2 = { "units":{ "cam":10,"gue":0,"arq":0,"jin":0,"cat":0}, "hps":{}, "hpt":0, "unitsNode":get_node("/root/Battle/Trop/Units") }
-
 func _ready():
 	pass
-
-func onBtn():
-	atack(trop1,trop2)
 
 func calc_hps(trop):
 	trop.hpt = 0;
