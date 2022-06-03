@@ -391,6 +391,9 @@ margin_top = -146.0
 margin_right = 64.0
 margin_bottom = -10.0
 custom_constants/separation = -6
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="t1" parent="units/VBox" instance=ExtResource( 7 )]
 

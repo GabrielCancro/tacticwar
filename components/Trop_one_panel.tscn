@@ -1,12 +1,11 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/awesome.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://components/Rec_one_panel.gd" type="Script" id=2]
+[ext_resource path="res://components/Trop_one_panel.gd" type="Script" id=2]
 [ext_resource path="res://assets/ui_recs.png" type="Texture" id=3]
 [ext_resource path="res://assets/9panel_d.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=1]
-size = 24
 outline_size = 2
 outline_color = Color( 0.0352941, 0.0352941, 0.0352941, 1 )
 extra_spacing_char = 2
@@ -22,6 +21,9 @@ patch_margin_top = 6
 patch_margin_right = 6
 patch_margin_bottom = 6
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 16, 16 )
@@ -38,3 +40,11 @@ custom_fonts/font = SubResource( 1 )
 text = "99"
 align = 1
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+flat = true

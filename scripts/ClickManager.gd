@@ -40,6 +40,7 @@ func _input(event):
 
 func onTileClick(tile):
 #	print("onTileClick ",tile)
+	GC.UI.get_node("Move_Trop_panel").hide_panel()
 	if(GC.currentSelect):
 		if(GC.currentSelect.OWN==GC.humanPlayer && GC.currentSelect.OWN==GC.currentTurn): apply_destine_action(tile)
 		else: GC.currentSelect.unselect()
@@ -48,7 +49,6 @@ func onTileClick(tile):
 		if build: build.select()
 		var trop = get_element_in_tile(tile,"trops_group");
 		if trop: trop.select()
-#	print("GC.currentSelect ",GC.currentSelectType," ",GC.currentSelect)
 
 func get_element_in_tile(tile,group):
 	for t in get_tree().get_nodes_in_group(group):
@@ -58,8 +58,7 @@ func get_element_in_tile(tile,group):
 func apply_destine_action(tile):
 	var trop_dest = get_element_in_tile(tile,"trops_group");
 	var build_dest = get_element_in_tile(tile,"builds_group");
-	
-#	print("DESTINE ",GC.currentSelectType," to ",tile)
+	var this_trop = GC.currentSelect
 	
 	if GC.currentSelectType == "Trop":
 		GC.currentSelect.confirm_move = false
@@ -71,12 +70,12 @@ func apply_destine_action(tile):
 				GC.currentSelect.unselect()
 			else: GC.currentSelect.unselect()
 		elif build_dest:
-			if(GC.currentSelect.OWN==build_dest.OWN && 
-			GC.currentSelect.tile_pos.distance_to(GC.pos_to_tile(build_dest.position))<=2):
-				guard_trop_in_build(GC.currentSelect,build_dest)
 			GC.currentSelect.unselect()
+			if(this_trop.OWN==build_dest.OWN && 
+			this_trop.tile_pos.distance_to(GC.pos_to_tile(build_dest.position))<=2):
+#				guard_trop_in_build(GC.currentSelect,build_dest)				
+				GC.show_move_trop_panel(this_trop,build_dest)
 		else:
-#			print(GC.currentSelect.path.back(),GC.mouseTilePos)
 			if(GC.currentSelect.path.size()>0 && GC.currentSelect.path.back()==GC.mouseTilePos): 
 				GC.currentSelect.confirm_move = true
 				GC.currentSelect.set_destine(GC.mouseTilePos)
@@ -86,9 +85,8 @@ func apply_destine_action(tile):
 	if GC.currentSelectType == "Build":
 		GC.currentSelect.unselect()
 
-func guard_trop_in_build(trop,build):
-	for u in trop.data.units:
-		build.UNITS[u] += trop.data.units[u]
-	trop.remove_trop()
-	build.update_units_label()
-#	print("guard_trop_in_build ",trop," ",build)
+#func guard_trop_in_build(trop,build):
+#	for u in trop.data.units:
+#		build.UNITS[u] += trop.data.units[u]
+#	trop.remove_trop()
+#	build.update_units_label()

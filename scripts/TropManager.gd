@@ -30,7 +30,7 @@ func calc_units(trop):
 	for u in trop.units:
 		trop.units[u] = ceil( trop.hps[u] / UNITS_DATA[u].hp )
 		amount += trop.units[u] 
-	trop.tropNode.update_label(amount)
+	trop.tropNode.update_label()
 	if amount<=0: trop.tropNode.remove_trop()
 
 func atack(atk,def):

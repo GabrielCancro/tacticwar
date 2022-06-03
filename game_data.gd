@@ -1,8 +1,8 @@
 extends Node
 
 var REC_NAMES = ["food","wood","stone","gold","pop"]
-
-var COLORS = [Color(1,1,1),Color(.8,.8,5), Color(5,.8,.8)]
+var TROP_NAMES = ["cam","gue","arq","jin","cat"]
+var COLORS = [Color(1,1,1),Color(.5,.5,7), Color(7,.5,.5)]
 
 var VARS = [{
 	"farm_prod":5, "sawmill_prod":7, "trop_steps":3

@@ -5,7 +5,8 @@ func _ready():
 
 func hide_all_ui():
 	$Build_panel.hide_panel()
-	$Trop.visible = false
+	$Trop_panel.hide_panel()
+	$Move_Trop_panel.hide_panel()
 
 func onSelectObject(go):
 	hide_all_ui()
@@ -17,7 +18,4 @@ func onSelectBuild(go):
 	$Build_panel.show_panel(go)
 
 func onSelectTrop(go):
-	$Trop.visible = true
-	$Trop/Panel/Label.text = "TROP"
-	for u in go.data.units:
-		$Trop/Panel/Label.text += "\n  "+u+":"+str(go.data.units[u])
+	$Trop_panel.show_panel(go)

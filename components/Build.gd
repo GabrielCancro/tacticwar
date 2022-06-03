@@ -42,3 +42,12 @@ func update_units_label():
 	for u in UNITS:
 		amount += UNITS[u] 
 	$Panel/Label.text = str(amount)
+
+func add_units(_units):
+	for u in _units:
+		if(!UNITS.has(u)): UNITS[u] = 0
+		UNITS[u] += _units[u]
+	update_units_label()
+
+func get_units(): 
+	return UNITS

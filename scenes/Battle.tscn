@@ -10,9 +10,9 @@
 [ext_resource path="res://scripts/TropManager.gd" type="Script" id=8]
 [ext_resource path="res://scripts/ClickManager.gd" type="Script" id=9]
 [ext_resource path="res://components/Build.tscn" type="PackedScene" id=10]
-[ext_resource path="res://themes/MinimalUI.tres" type="Theme" id=11]
+[ext_resource path="res://components/Trop_panel.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scripts/CanvasLayer.gd" type="Script" id=12]
-[ext_resource path="res://assets/9panel_a.png" type="Texture" id=13]
+[ext_resource path="res://components/Move_Trop_panel.tscn" type="PackedScene" id=13]
 [ext_resource path="res://assets/map/Nav-map.png" type="Texture" id=14]
 [ext_resource path="res://scripts/AStar.gd" type="Script" id=15]
 [ext_resource path="res://components/Header.tscn" type="PackedScene" id=16]
@@ -191,32 +191,6 @@ script = ExtResource( 12 )
 
 [node name="Build_panel" parent="CanvasLayer" instance=ExtResource( 18 )]
 
-[node name="Trop" type="Control" parent="CanvasLayer"]
-visible = false
-margin_left = 568.0
-margin_top = 40.0
-margin_right = 712.0
-margin_bottom = 224.0
-theme = ExtResource( 11 )
-__meta__ = {
-"_edit_group_": true
-}
+[node name="Trop_panel" parent="CanvasLayer" instance=ExtResource( 11 )]
 
-[node name="Panel" type="NinePatchRect" parent="CanvasLayer/Trop"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 13 )
-patch_margin_left = 6
-patch_margin_top = 6
-patch_margin_right = 6
-patch_margin_bottom = 6
-
-[node name="Label" type="Label" parent="CanvasLayer/Trop/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 7.0
-margin_top = 7.0
-margin_right = -8.0
-margin_bottom = -8.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "TROP"
+[node name="Move_Trop_panel" parent="CanvasLayer" instance=ExtResource( 13 )]

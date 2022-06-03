@@ -2,6 +2,7 @@ extends Node2D
 
 var STATE = "NONE"
 export var OWN = 1
+export var TYPE = "TROP"
 var current_anim
 var tile_pos = Vector2(0,0)
 var path = []
@@ -89,5 +90,17 @@ func get_class(): return "Trop"
 func remove_trop():
 	queue_free()
 
-func update_label(amount):
+func update_label():
+	var amount=0
+	for u in data.units:
+		amount += data.units[u]
 	$Panel/Label.text = str(amount)
+
+func add_units(_units):
+	for u in _units:
+		if(!data.units.has(u)): data.units[u] = 0
+		data.units[u] += _units[u]
+	update_label()
+
+func get_units():
+	return data.units

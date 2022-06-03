@@ -62,3 +62,6 @@ func get_nav_path(from,to,steps=20):
 func clear_path_lines():
 	MAP.get_node("Line2D").points = []
 	MAP.get_node("Line2D2").points = []
+
+func show_move_trop_panel(go1,go2):
+	UI.get_node("Move_Trop_panel").show_panel(go1,go2)
