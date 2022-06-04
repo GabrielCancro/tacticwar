@@ -7,6 +7,8 @@ func _ready():
 	$building/buy/Button.connect("button_down",self,"onBuildHammerClick")
 	for b in $building/HBox.get_children():
 		(b.get_node("Button") as Button).connect("button_down",self,"on_button_build_click",[ GAMEDATA.BUILDS.keys()[b.get_index()] ])
+	for b in $units/VBox.get_children():
+		(b.get_node("Button") as Button).connect("button_down",self,"on_button_unit_click",[ GAMEDATA.TROPS.keys()[b.get_index()] ])
 
 func hide_panel():
 	visible = false
@@ -16,8 +18,8 @@ func show_panel(go):
 	visible = true
 	set_buttons_info()
 	$building/buy.visible = false
-	$lb_level.text = "CITY"
-#	$lb_pob.text = "pob "+str(GO.POB.cnt)+"/"+str(GO.POB.max)+"    "+str(GO.POB.prg_inc*10)+"% +"+ str(GO.POB.inc)
+	$lb_type.text = GO.TYPE
+	$lb_type.modulate = GAMEDATA.COLORS[GO.OWN]
 	$lb_prod.text = ""
 	var PROD = GO.get_prod()
 	for p in PROD: 
@@ -28,9 +30,8 @@ func show_panel(go):
 	var PANELS = $units/VBox.get_children()
 	var index = 0
 	for u in GO.UNITS: 
-		PANELS[index].set_info( u, GO.UNITS[u], 0 )
+		PANELS[index].set_info( u, GO.UNITS[u] )
 		index += 1
-	$lb_units.text = str(GO.UNITS)
 
 func set_buttons_info():
 	var i = 0 
@@ -48,11 +49,12 @@ func set_buttons_info():
 func on_button_build_click(key):
 	STRUCTURE = key
 	$building/buy.visible=true
+	$units/buy.visible=false
 	$building/buy/lb_name.text = key.capitalize()
 	$building/buy/lb_desc.text = GAMEDATA.BUILDS[key].desc
-	if check_recs(): $building/buy/lb_rec.modulate = Color(1,1,1,1)
+	if check_recs(GAMEDATA.BUILDS): $building/buy/lb_rec.modulate = Color(1,1,1,1)
 	else: $building/buy/lb_rec.modulate = Color(30,10,10,1)
-	$building/buy/Button.visible = check_recs()
+	$building/buy/Button.visible = check_recs(GAMEDATA.BUILDS)
 	var rec = ""
 	for i in GAMEDATA.REC_NAMES:
 		if(GAMEDATA.BUILDS[key].has(i)): rec += "   "+i+":"+str(GAMEDATA.BUILDS[key][i])
@@ -60,7 +62,7 @@ func on_button_build_click(key):
 	print("CLICK ",key)
 
 func onBuildHammerClick():
-	if !check_recs(): return
+	if !check_recs(GAMEDATA.BUILDS): return
 	if !GO.BUILDS.has(STRUCTURE): GO.BUILDS[STRUCTURE] = 0
 	GO.BUILDS[STRUCTURE] += 1
 	for i in GAMEDATA.REC_NAMES:
@@ -69,8 +71,23 @@ func onBuildHammerClick():
 	GC.HEADER.update_header()
 	show_panel(GO)
 
-func check_recs():
+func check_recs(REQ_ARR):
 	for i in GAMEDATA.REC_NAMES:
-		if(GAMEDATA.BUILDS[STRUCTURE].has(i)):
-			if(GC.RECS[GO.OWN][i]<GAMEDATA.BUILDS[STRUCTURE][i]): return false
+		if(REQ_ARR[STRUCTURE].has(i)):
+			if(GC.RECS[GO.OWN][i]<REQ_ARR[STRUCTURE][i]): return false
 	return true
+
+func on_button_unit_click(key):
+	STRUCTURE = key
+	$building/buy.visible=false
+	$units/buy.visible=true
+	$units/buy/lb_name.text = key.capitalize()
+	$units/buy/lb_desc.text = GAMEDATA.TROPS[key].desc
+	if check_recs(GAMEDATA.TROPS): $units/buy/lb_rec.modulate = Color(1,1,1,1)
+	else: $units/buy/lb_rec.modulate = Color(30,10,10,1)
+	$units/buy/Button.visible = check_recs(GAMEDATA.TROPS)
+	var rec = ""
+	for i in GAMEDATA.REC_NAMES:		
+		if(GAMEDATA.TROPS[key].has(i)): rec += "   "+i+":"+str(GAMEDATA.TROPS[key][i])
+	$units/buy/lb_rec.text = rec
+	print("CLICK ",i)
