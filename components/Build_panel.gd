@@ -5,6 +5,8 @@ var STRUCTURE
 
 func _ready():
 	$building/buy/Button.connect("button_down",self,"onBuildHammerClick")
+	$units/buy/Button.connect("button_down",self,"onTropHammerClick")
+	$units/new_trop/Button.connect("button_down",self,"onNewTropClick")
 	for b in $building/HBox.get_children():
 		(b.get_node("Button") as Button).connect("button_down",self,"on_button_build_click",[ GAMEDATA.BUILDS.keys()[b.get_index()] ])
 	for b in $units/VBox.get_children():
@@ -18,6 +20,7 @@ func show_panel(go):
 	visible = true
 	set_buttons_info()
 	$building/buy.visible = false
+	$units/buy.visible = false
 	$lb_type.text = GO.TYPE
 	$lb_type.modulate = GAMEDATA.COLORS[GO.OWN]
 	$lb_prod.text = ""
@@ -53,7 +56,7 @@ func on_button_build_click(key):
 	$building/buy/lb_name.text = key.capitalize()
 	$building/buy/lb_desc.text = GAMEDATA.BUILDS[key].desc
 	if check_recs(GAMEDATA.BUILDS): $building/buy/lb_rec.modulate = Color(1,1,1,1)
-	else: $building/buy/lb_rec.modulate = Color(30,10,10,1)
+	else: $building/buy/lb_rec.modulate = Color(1,.3,.3,1)
 	$building/buy/Button.visible = check_recs(GAMEDATA.BUILDS)
 	var rec = ""
 	for i in GAMEDATA.REC_NAMES:
@@ -65,11 +68,9 @@ func onBuildHammerClick():
 	if !check_recs(GAMEDATA.BUILDS): return
 	if !GO.BUILDS.has(STRUCTURE): GO.BUILDS[STRUCTURE] = 0
 	GO.BUILDS[STRUCTURE] += 1
-	for i in GAMEDATA.REC_NAMES:
-		if(GAMEDATA.BUILDS[STRUCTURE].has(i)):
-			GC.RECS[GO.OWN][i] -= GAMEDATA.BUILDS[STRUCTURE][i]
-	GC.HEADER.update_header()
+	GC.dec_recs(GAMEDATA.BUILDS[STRUCTURE])
 	show_panel(GO)
+	on_button_build_click(STRUCTURE)
 
 func check_recs(REQ_ARR):
 	for i in GAMEDATA.REC_NAMES:
@@ -81,13 +82,46 @@ func on_button_unit_click(key):
 	STRUCTURE = key
 	$building/buy.visible=false
 	$units/buy.visible=true
-	$units/buy/lb_name.text = key.capitalize()
+	$units/buy/lb_name.text = GAMEDATA.TROPS[key].name.capitalize()
 	$units/buy/lb_desc.text = GAMEDATA.TROPS[key].desc
 	if check_recs(GAMEDATA.TROPS): $units/buy/lb_rec.modulate = Color(1,1,1,1)
-	else: $units/buy/lb_rec.modulate = Color(30,10,10,1)
+	else: $units/buy/lb_rec.modulate = Color(1,.3,.3,1)
 	$units/buy/Button.visible = check_recs(GAMEDATA.TROPS)
 	var rec = ""
-	for i in GAMEDATA.REC_NAMES:		
+	for i in GAMEDATA.REC_NAMES:
 		if(GAMEDATA.TROPS[key].has(i)): rec += "   "+i+":"+str(GAMEDATA.TROPS[key][i])
 	$units/buy/lb_rec.text = rec
-	print("CLICK ",i)
+
+func onTropHammerClick():
+	if STRUCTURE == "new_trop":
+		onNewTropHammerClick()
+		return
+	if !check_recs(GAMEDATA.TROPS): return
+	if !GO.get_units().has(STRUCTURE): GO.add_units({STRUCTURE:0})
+	GO.add_units({STRUCTURE:1})
+	GC.dec_recs(GAMEDATA.TROPS[STRUCTURE])
+	show_panel(GO)
+	on_button_unit_click(STRUCTURE)
+
+func onNewTropClick():
+	STRUCTURE = "new_trop"
+	$building/buy.visible=false
+	$units/buy.visible=true
+	$units/buy/lb_name.text = "new trop".capitalize()
+	$units/buy/lb_desc.text = "create new trop to move your units on map"
+	var RECS = {"new_trop":{"gold":50}}
+	if check_recs(RECS): $units/buy/lb_rec.modulate = Color(1,1,1,1)
+	else: $units/buy/lb_rec.modulate = Color(1,.3,.3,1)
+	$units/buy/Button.visible = check_recs(RECS)
+	var rec = ""
+	for i in GAMEDATA.REC_NAMES:
+		if(RECS[STRUCTURE].has(i)): rec += "   "+i+":"+str(RECS[STRUCTURE][i])
+	$units/buy/lb_rec.text = rec
+
+func onNewTropHammerClick():
+	var RECS = {"new_trop":{"gold":50}}
+	if !check_recs(RECS): return
+	GC.dec_recs(RECS[STRUCTURE])
+	show_panel(GO)
+	onNewTropClick()
+	print("onNewTropHammerClick onNewTropHammerClick onNewTropHammerClick")

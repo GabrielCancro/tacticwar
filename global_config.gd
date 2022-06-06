@@ -65,3 +65,15 @@ func clear_path_lines():
 
 func show_move_trop_panel(go1,go2):
 	UI.get_node("Move_Trop_panel").show_panel(go1,go2)
+
+func add_recs(TO_ADD_RECS,OWN=currentTurn):
+	for r in GAMEDATA.REC_NAMES:
+		if TO_ADD_RECS.has(r):
+			RECS[OWN][r] += TO_ADD_RECS[r]
+	if OWN==humanPlayer: HEADER.update_header()
+
+func dec_recs(TO_ADD_RECS,OWN=currentTurn):
+	TO_ADD_RECS = TO_ADD_RECS.duplicate()
+	for r in GAMEDATA.REC_NAMES:
+		if(TO_ADD_RECS.has(r)): TO_ADD_RECS[r] *= -1	
+	add_recs(TO_ADD_RECS,OWN)
