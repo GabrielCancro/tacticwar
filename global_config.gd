@@ -77,3 +77,9 @@ func dec_recs(TO_ADD_RECS,OWN=currentTurn):
 	for r in GAMEDATA.REC_NAMES:
 		if(TO_ADD_RECS.has(r)): TO_ADD_RECS[r] *= -1	
 	add_recs(TO_ADD_RECS,OWN)
+
+func new_trop(own,tile_pos):
+	var TROP = preload("res://components/Trop.tscn").instance()
+	TROP.OWN = own
+	MAP.get_node("Objects").add_child(TROP)
+	TROP.teleport_to_tile(tile_pos)

@@ -49,6 +49,7 @@ func onTileClick(tile):
 		if build: build.select()
 		var trop = get_element_in_tile(tile,"trops_group");
 		if trop: trop.select()
+		print("ZINDEX ",GC.currentSelect.z_index)
 
 func get_element_in_tile(tile,group):
 	for t in get_tree().get_nodes_in_group(group):

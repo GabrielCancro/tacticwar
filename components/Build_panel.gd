@@ -2,6 +2,7 @@ extends NinePatchRect
 
 var GO
 var STRUCTURE
+var NEW_TROP_RECS = {"new_trop":{"gold":10,"pop":3}}
 
 func _ready():
 	$building/buy/Button.connect("button_down",self,"onBuildHammerClick")
@@ -109,19 +110,19 @@ func onNewTropClick():
 	$units/buy.visible=true
 	$units/buy/lb_name.text = "new trop".capitalize()
 	$units/buy/lb_desc.text = "create new trop to move your units on map"
-	var RECS = {"new_trop":{"gold":50}}
-	if check_recs(RECS): $units/buy/lb_rec.modulate = Color(1,1,1,1)
+	if check_recs(NEW_TROP_RECS): $units/buy/lb_rec.modulate = Color(1,1,1,1)
 	else: $units/buy/lb_rec.modulate = Color(1,.3,.3,1)
-	$units/buy/Button.visible = check_recs(RECS)
+	$units/buy/Button.visible = check_recs(NEW_TROP_RECS)
 	var rec = ""
 	for i in GAMEDATA.REC_NAMES:
-		if(RECS[STRUCTURE].has(i)): rec += "   "+i+":"+str(RECS[STRUCTURE][i])
+		if(NEW_TROP_RECS[STRUCTURE].has(i)): rec += "   "+i+":"+str(NEW_TROP_RECS[STRUCTURE][i])
 	$units/buy/lb_rec.text = rec
 
 func onNewTropHammerClick():
-	var RECS = {"new_trop":{"gold":50}}
-	if !check_recs(RECS): return
-	GC.dec_recs(RECS[STRUCTURE])
+	if !check_recs(NEW_TROP_RECS): return
+	GC.dec_recs(NEW_TROP_RECS[STRUCTURE])
+	var tile_pos = GC.pos_to_tile(GO.position) + Vector2(1,0)
+	GC.new_trop(1,tile_pos)
 	show_panel(GO)
 	onNewTropClick()
 	print("onNewTropHammerClick onNewTropHammerClick onNewTropHammerClick")

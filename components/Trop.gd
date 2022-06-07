@@ -3,6 +3,7 @@ extends Node2D
 var STATE = "NONE"
 export var OWN = 1
 export var TYPE = "TROP"
+export var st_cam = 0
 var current_anim
 var tile_pos = Vector2(0,0)
 var path = []
@@ -11,7 +12,7 @@ var steps = 0
 
 onready var data = { 
 	"own":1,
-	"units":{ "cam":5,"gue":5,"arq":5,"jin":1,"cat":0}, 
+	"units":{ "cam":3,"gue":0,"arq":0,"jin":0,"cat":0}, 
 	"hps":{}, 
 	"hpt":0, 
 	"unitsNode":$Units,
@@ -21,18 +22,18 @@ onready var data = {
 func _ready():
 	add_to_group("trops_group")
 	yield(get_tree().create_timer(.1),"timeout")
+	if st_cam>0: data.units["cam"] = st_cam
 	GC.TropManager.calc_hps(data)
 	GC.TropManager.recreate_units_nodes(data)
 	teleport_to_tile(GC.pos_to_tile(position))
 	tile_pos = GC.pos_to_tile(position)
 	restore_steps()
 	$Panel.modulate = GAMEDATA.COLORS[OWN]
-	pass # Replace with function body.
 
 func _process(delta):
 	if( path.size() != 0 && confirm_move && steps>0): move_trop()
 	else: play_units_anim("idle")
-	z_index = position.y
+	z_index = (position.y/32)+100
 
 func move_trop():
 #	print("MOVING TROP",path)

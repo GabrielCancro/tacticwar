@@ -163,17 +163,14 @@ align = 1
 [node name="Objects" type="Node2D" parent="Map"]
 
 [node name="Trop" parent="Map/Objects" instance=ExtResource( 6 )]
-position = Vector2( 163, 265 )
-
-[node name="Trop2" parent="Map/Objects" instance=ExtResource( 6 )]
-position = Vector2( 304, 248 )
-
-[node name="Trop3" parent="Map/Objects" instance=ExtResource( 6 )]
-position = Vector2( 144, 144 )
+position = Vector2( 309, 270 )
 OWN = 2
 
 [node name="Build" parent="Map/Objects" instance=ExtResource( 10 )]
 position = Vector2( 112, 240 )
+
+[node name="Build2" parent="Map/Objects" instance=ExtResource( 10 )]
+position = Vector2( 111, 203 )
 
 [node name="TropManager" type="Node" parent="."]
 script = ExtResource( 8 )
@@ -190,7 +187,10 @@ script = ExtResource( 12 )
 [node name="Header" parent="CanvasLayer" instance=ExtResource( 16 )]
 
 [node name="Build_panel" parent="CanvasLayer" instance=ExtResource( 18 )]
+visible = false
 
 [node name="Trop_panel" parent="CanvasLayer" instance=ExtResource( 11 )]
+visible = false
 
 [node name="Move_Trop_panel" parent="CanvasLayer" instance=ExtResource( 13 )]
+visible = false
