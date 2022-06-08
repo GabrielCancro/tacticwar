@@ -11,7 +11,7 @@ func create_all_points(tx,ty):
 	astar.clear()
 	for y in range(tx):
 		for x in range(ty):
-			astar.add_point ( y*1000+x, Vector2(x,y) )
+			astar.add_point( y*1000+x, Vector2(x,y) )
 
 func connect_all_points(tx,ty):
 	for y in range(tx):
@@ -29,3 +29,6 @@ func get_nav_path(from,to):
 	for p in astar.get_id_path(from_id,to_id):
 		final_array.append( Vector2( p%1000, floor(p/1000) ) );
 	return final_array
+
+func get_tile_rec(tile):
+	return $TileMapRec.get_cell(tile.x,tile.y)

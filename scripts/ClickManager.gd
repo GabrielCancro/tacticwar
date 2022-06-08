@@ -49,7 +49,6 @@ func onTileClick(tile):
 		if build: build.select()
 		var trop = get_element_in_tile(tile,"trops_group");
 		if trop: trop.select()
-		print("ZINDEX ",GC.currentSelect.z_index)
 
 func get_element_in_tile(tile,group):
 	for t in get_tree().get_nodes_in_group(group):
@@ -73,6 +72,7 @@ func apply_destine_action(tile):
 		elif build_dest:
 			GC.currentSelect.unselect()
 			if(this_trop.OWN==build_dest.OWN && 
+			build_dest.TYPE=="CITY" && 
 			this_trop.tile_pos.distance_to(GC.pos_to_tile(build_dest.position))<=2):
 #				guard_trop_in_build(GC.currentSelect,build_dest)				
 				GC.show_move_trop_panel(this_trop,build_dest)

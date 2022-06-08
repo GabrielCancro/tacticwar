@@ -11,6 +11,23 @@ font_data = ExtResource( 3 )
 [node name="Build" type="Node2D"]
 script = ExtResource( 2 )
 
+[node name="Flag" type="NinePatchRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -10.0
+margin_top = -3.0
+margin_right = 10.0
+margin_bottom = 17.0
+texture = ExtResource( 4 )
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+__meta__ = {
+"_edit_group_": true
+}
+
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 hframes = 4

@@ -346,14 +346,15 @@ align = 2
 valign = 1
 
 [node name="units" type="Control" parent="."]
-margin_top = -138.0
-margin_right = 64.0
+margin_top = -86.0
+margin_right = 126.0
 margin_bottom = 6.0
 
 [node name="VBox" type="GridContainer" parent="units"]
-margin_top = 53.0
-margin_right = 122.0
-margin_bottom = 137.0
+margin_left = 1.0
+margin_top = 2.0
+margin_right = 123.0
+margin_bottom = 86.0
 custom_constants/vseparation = -6
 custom_constants/hseparation = -6
 columns = 2
@@ -381,10 +382,10 @@ margin_bottom = 84.0
 [node name="buy" type="NinePatchRect" parent="units"]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 122.0
-margin_top = -91.0
-margin_right = 246.0
-margin_bottom = -7.0
+margin_left = 123.0
+margin_top = -90.0
+margin_right = 247.0
+margin_bottom = -6.0
 texture = ExtResource( 2 )
 patch_margin_left = 6
 patch_margin_top = 6
@@ -434,10 +435,10 @@ valign = 1
 [node name="new_trop" type="NinePatchRect" parent="units"]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 58.0
-margin_top = -39.0
-margin_right = 122.0
-margin_bottom = -7.0
+margin_left = 59.0
+margin_top = -38.0
+margin_right = 123.0
+margin_bottom = -6.0
 texture = ExtResource( 2 )
 patch_margin_left = 6
 patch_margin_top = 6

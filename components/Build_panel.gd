@@ -18,8 +18,7 @@ func hide_panel():
 	
 func show_panel(go):
 	GO = go
-	visible = true
-	set_buttons_info()
+	visible = true	
 	$building/buy.visible = false
 	$units/buy.visible = false
 	$lb_type.text = GO.TYPE
@@ -31,11 +30,18 @@ func show_panel(go):
 			$lb_prod.text += p
 			if(PROD[p]>0): $lb_prod.text += "+" 
 			$lb_prod.text += str(PROD[p])+"   "
-	var PANELS = $units/VBox.get_children()
-	var index = 0
-	for u in GO.UNITS: 
-		PANELS[index].set_info( u, GO.UNITS[u] )
-		index += 1
+	if(GO.TYPE=="CITY"):
+		$building.visible = true
+		$units.visible = true
+		set_buttons_info()
+		var PANELS = $units/VBox.get_children()
+		var index = 0
+		for u in GO.UNITS: 
+			PANELS[index].set_info( u, GO.UNITS[u] )
+			index += 1
+	elif(GO.TYPE=="RES"):
+		$building.visible = false
+		$units.visible = false
 
 func set_buttons_info():
 	var i = 0 
@@ -52,7 +58,7 @@ func set_buttons_info():
 
 func on_button_build_click(key):
 	STRUCTURE = key
-	$building/buy.visible=true
+	if(GC.currentTurn==GC.humanPlayer): $building/buy.visible=true
 	$units/buy.visible=false
 	$building/buy/lb_name.text = key.capitalize()
 	$building/buy/lb_desc.text = GAMEDATA.BUILDS[key].desc
@@ -82,7 +88,7 @@ func check_recs(REQ_ARR):
 func on_button_unit_click(key):
 	STRUCTURE = key
 	$building/buy.visible=false
-	$units/buy.visible=true
+	if(GC.currentTurn==GC.humanPlayer): $units/buy.visible=true
 	$units/buy/lb_name.text = GAMEDATA.TROPS[key].name.capitalize()
 	$units/buy/lb_desc.text = GAMEDATA.TROPS[key].desc
 	if check_recs(GAMEDATA.TROPS): $units/buy/lb_rec.modulate = Color(1,1,1,1)
@@ -107,7 +113,7 @@ func onTropHammerClick():
 func onNewTropClick():
 	STRUCTURE = "new_trop"
 	$building/buy.visible=false
-	$units/buy.visible=true
+	if(GC.currentTurn==GC.humanPlayer): $units/buy.visible=true
 	$units/buy/lb_name.text = "new trop".capitalize()
 	$units/buy/lb_desc.text = "create new trop to move your units on map"
 	if check_recs(NEW_TROP_RECS): $units/buy/lb_rec.modulate = Color(1,1,1,1)
@@ -123,6 +129,6 @@ func onNewTropHammerClick():
 	GC.dec_recs(NEW_TROP_RECS[STRUCTURE])
 	var tile_pos = GC.pos_to_tile(GO.position) + Vector2(1,0)
 	GC.new_trop(1,tile_pos)
-	show_panel(GO)
+	hide_panel()
 	onNewTropClick()
 	print("onNewTropHammerClick onNewTropHammerClick onNewTropHammerClick")

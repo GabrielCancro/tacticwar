@@ -2,7 +2,7 @@ extends Node
 
 var REC_NAMES = ["food","wood","stone","gold","pop"]
 var TROP_NAMES = ["cam","gue","arq","jin","cat"]
-var COLORS = [Color(1,1,1),Color(.8,.8,7), Color(7,.5,.5)]
+var COLORS = [Color(1,1,1),Color(.5,.5,7), Color(7,.5,.5)]
 
 var VARS = [{
 	"farm_prod":5, "sawmill_prod":7, "trop_steps":3
@@ -24,5 +24,13 @@ var TROPS = {
 	"cat":{"name":"siege","wood":150, "gold":50, "pop":2, "desc":"The siege destroys walls and towers easily"},
 }
 
+var TILE_REC = {
+	"r0":"wood"
+}
+
 func _ready():
 	for i in range(4): VARS.append(VARS[0])
+
+func get_tile_rec(tile):
+	var id_tile = GC.MAP.get_tile_rec(tile)
+	return TILE_REC["r"+str(id_tile)]
