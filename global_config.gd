@@ -10,7 +10,6 @@ var humanPlayer = 1
 var turn = 1
 
 var RECS = [
-	{"food":0, "wood":0, "stone":0, "gold":0, "pop":0},
 	{"food":100, "wood":100, "stone":50, "gold":50, "pop":2}
 ]
 
@@ -23,9 +22,10 @@ onready var UI = get_node("/root/Battle/CanvasLayer")
 onready var HEADER = get_node("/root/Battle/CanvasLayer/Header")
 onready var MAP = get_node("/root/Battle/Map")
 onready var TURNER = get_node("/root/Battle/TurnManager")
+onready var AI = get_node("/root/Battle/AIManager")
 
 func _ready():
-	pass # Replace with function body.
+	for i in range(4): RECS.append(RECS[0].duplicate())
 
 func init_references():
 	TropManager = get_node("/root/Battle/TropManager")
@@ -83,3 +83,9 @@ func new_trop(own,tile_pos):
 	TROP.OWN = own
 	MAP.get_node("Objects").add_child(TROP)
 	TROP.teleport_to_tile(tile_pos)
+
+func check_recs(REQ_ARR,OWN=humanPlayer):
+	for i in GAMEDATA.REC_NAMES:
+		if(REQ_ARR.has(i)):
+			if(GC.RECS[OWN][i]<REQ_ARR[i]): return false
+	return true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://scenes/Battle.gd" type="Script" id=1]
 [ext_resource path="res://assets/map/Water.png" type="Texture" id=2]
@@ -18,6 +18,7 @@
 [ext_resource path="res://components/Header.tscn" type="PackedScene" id=16]
 [ext_resource path="res://scripts/TurnManager.gd" type="Script" id=17]
 [ext_resource path="res://components/Build_panel.tscn" type="PackedScene" id=18]
+[ext_resource path="res://scripts/AIManager.gd" type="Script" id=19]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Grass-deco.png 0"
@@ -169,6 +170,10 @@ OWN = 2
 [node name="Build" parent="Map/Objects" instance=ExtResource( 10 )]
 position = Vector2( 112, 240 )
 
+[node name="Build3" parent="Map/Objects" instance=ExtResource( 10 )]
+position = Vector2( 399, 233 )
+OWN = 2
+
 [node name="Build2" parent="Map/Objects" instance=ExtResource( 10 )]
 position = Vector2( 175, 149 )
 TYPE = "RES"
@@ -181,6 +186,9 @@ script = ExtResource( 9 )
 
 [node name="TurnManager" type="Node" parent="."]
 script = ExtResource( 17 )
+
+[node name="AIManager" type="Node" parent="."]
+script = ExtResource( 19 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource( 12 )
@@ -195,3 +203,7 @@ visible = false
 
 [node name="Move_Trop_panel" parent="CanvasLayer" instance=ExtResource( 13 )]
 visible = false
+
+[node name="Control" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0

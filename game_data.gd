@@ -29,7 +29,7 @@ var TILE_REC = {
 }
 
 func _ready():
-	for i in range(4): VARS.append(VARS[0])
+	for i in range(4): VARS.append(VARS[0].duplicate())
 
 func get_tile_rec(tile):
 	var id_tile = GC.MAP.get_tile_rec(tile)
